@@ -80,14 +80,14 @@ I am a 3rd-year Computer Engineering student at the Arab Academy for Science, Te
 ### 📊 GitHub Activity
 
 <div align="center">
-  <!-- Animated GitHub Stats Card -->
-  <img src="https://github-readme-stats.vercel.app/api?username=YoussefEslam29&show_icons=true&theme=radium&hide_border=true&title_color=3B82F6" alt="GitHub Stats" width="48%" />
+  <!-- Animated GitHub Stats Card (Using Stable Fallback Server) -->
+  <img src="https://github-readme-stats.shion.dev/api?username=YoussefEslam29&show_icons=true&theme=radium&hide_border=true&title_color=3B82F6&v=1" alt="GitHub Stats" width="48%" />
   
-  <!-- Animated Top Languages Card -->
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=YoussefEslam29&layout=compact&theme=radium&hide_border=true&title_color=3B82F6" alt="Top Languages" width="48%" />
+  <!-- Animated Top Languages Card (Using Stable Fallback Server) -->
+  <img src="https://github-readme-stats.shion.dev/api/top-langs/?username=YoussefEslam29&layout=compact&theme=radium&hide_border=true&title_color=3B82F6&v=1" alt="Top Languages" width="48%" />
 </div>
 
 <div align="center">
-  <!-- Animated Streak Stats -->
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=YoussefEslam29&theme=radium&hide_border=true&stroke=3B82F6&ring=3B82F6&fire=3B82F6" alt="GitHub Streak" />
+  <!-- Animated Streak Stats (Using Demolab Server) -->
+  <img src="https://streak-stats.demolab.com/?user=YoussefEslam29&theme=radium&hide_border=true&stroke=3B82F6&ring=3B82F6&fire=3B82F6&v=1" alt="GitHub Streak" />
 </div>
