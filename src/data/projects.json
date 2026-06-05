@@ -1,0 +1,46 @@
+[
+  {
+    "id": "cashback-motors",
+    "title": "CashBack Motors",
+    "description": "A comprehensive digital platform for motorcycle sales, featuring advanced search, filtering, and a modern responsive interface built with server-side rendering.",
+    "techStack": ["Next.js", "Tailwind CSS", "JavaScript"],
+    "category": "Web",
+    "github": "https://github.com/YoussefEslam29",
+    "live": null,
+    "featured": true,
+    "image": null
+  },
+  {
+    "id": "eve-robot",
+    "title": "EVE Robot",
+    "description": "A teleoperated robotics project engineered with ROS 2 and Raspberry Pi 4, featuring ultrasonic sensors and a PlayStation controller interface for remote operation.",
+    "techStack": ["ROS 2", "Raspberry Pi", "Python", "C++"],
+    "category": "Robotics",
+    "github": "https://github.com/YoussefEslam29",
+    "live": null,
+    "featured": true,
+    "image": null
+  },
+  {
+    "id": "sicxe-assembler",
+    "title": "SIC/XE Assembler",
+    "description": "A complete 2-pass assembler built from scratch, demonstrating deep understanding of low-level microprocessor architecture and machine code generation.",
+    "techStack": ["Python"],
+    "category": "Systems",
+    "github": "https://github.com/YoussefEslam29",
+    "live": null,
+    "featured": true,
+    "image": null
+  },
+  {
+    "id": "bean-classification",
+    "title": "Bean Plant Classification",
+    "description": "A machine learning model utilizing LightGBM for accurate data classification of bean plant varieties, featuring data preprocessing and model evaluation pipelines.",
+    "techStack": ["Python", "LightGBM", "scikit-learn"],
+    "category": "ML",
+    "github": "https://github.com/YoussefEslam29",
+    "live": null,
+    "featured": true,
+    "image": null
+  }
+]

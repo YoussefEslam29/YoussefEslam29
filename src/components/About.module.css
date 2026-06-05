@@ -1,0 +1,135 @@
+.about {
+  background: var(--clr-bg-secondary);
+  overflow: hidden;
+}
+
+.label {
+  font-size: var(--fs-small);
+  color: var(--clr-accent);
+  margin-bottom: var(--space-sm);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.text p {
+  color: var(--clr-text-secondary);
+  margin-bottom: var(--space-lg);
+  line-height: 1.8;
+}
+
+.intro {
+  font-size: 1.1rem;
+  color: var(--clr-text-primary) !important;
+}
+
+.highlight {
+  color: var(--clr-accent);
+  font-weight: var(--fw-semibold);
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--clr-border);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: var(--fw-black);
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.statLabel {
+  font-size: var(--fs-xs);
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Decorative Card */
+.visual {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(168,85,247,0.3), transparent 50%, rgba(108,43,217,0.3));
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.cardGlow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle at 50% 50%, rgba(168,85,247,0.1) 0%, transparent 70%);
+  border-radius: var(--radius-xl);
+  pointer-events: none;
+}
+
+.cardContent {
+  background: var(--clr-bg-card);
+  border-radius: calc(var(--radius-xl) - 2px);
+  padding: var(--space-xl);
+}
+
+.codeBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.codeLine {
+  color: var(--clr-text-secondary);
+  white-space: pre;
+}
+
+.codeKeyword {
+  color: var(--clr-purple-400);
+}
+
+.codeVar {
+  color: var(--clr-purple-200);
+}
+
+.codeString {
+  color: #4ade80;
+}
+
+.codeBool {
+  color: #fbbf24;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  .stats {
+    justify-content: center;
+  }
+  .text {
+    text-align: center;
+  }
+}
