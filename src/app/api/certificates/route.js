@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const collection = await getCollection("certificates");
     if (collection) {
-      const certs = await collection.find({}).toArray();
+      const certs = await collection.find({}).sort({ createdAt: -1 }).toArray();
       if (certs.length > 0) {
         return NextResponse.json(certs);
       }
@@ -28,8 +28,13 @@ export async function POST(request) {
     }
 
     const cert = {
-      ...body,
       id: body.id || body.title.toLowerCase().replace(/\s+/g, "-"),
+      title: body.title,
+      issuer: body.issuer,
+      date: body.date || "",
+      description: body.description || "",
+      category: body.category || "IEEE & Events",
+      image: body.image || "",
       createdAt: new Date(),
     };
 
