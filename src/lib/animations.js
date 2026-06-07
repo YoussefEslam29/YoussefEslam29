@@ -134,7 +134,7 @@ export function useActiveSection(sectionIds) {
             setActiveId(id);
           }
         },
-        { threshold: 0.3, rootMargin: "-80px 0px -50% 0px" }
+        { threshold: 0.1, rootMargin: "-120px 0px -60% 0px" }
       );
 
       observer.observe(el);

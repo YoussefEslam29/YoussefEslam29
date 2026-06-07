@@ -12,7 +12,7 @@ export function createAvatarScene(canvas) {
     alpha: true,
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
   renderer.setClearColor(0x000000, 0);
 
   // ---- Scene ----
@@ -26,6 +26,25 @@ export function createAvatarScene(canvas) {
     100
   );
   camera.position.set(0, 0.5, 5);
+
+  const updateCameraX = () => {
+    const w = canvas.clientWidth;
+    if (w === 0) return;
+    if (w > 1024) {
+      camera.position.x = -1.5; // Shift camera left -> subject moves right
+      camera.position.y = 0.5;
+      camera.position.z = 5;
+    } else if (w > 768) {
+      camera.position.x = -0.9; // Shift camera left -> subject moves right
+      camera.position.y = 0.5;
+      camera.position.z = 5.2;
+    } else {
+      camera.position.x = 0;
+      camera.position.y = -0.3; // Center-bottom on mobile
+      camera.position.z = 6.2;  // Push camera back to scale down avatar
+    }
+  };
+  updateCameraX();
 
   // ---- Lights ----
   const ambientLight = new THREE.AmbientLight(0x6c2bd9, 0.4);
@@ -170,9 +189,11 @@ export function createAvatarScene(canvas) {
   const handleResize = () => {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
+    if (w === 0 || h === 0) return; // Prevent division by zero and aspect ratio crashes
     camera.aspect = w / h;
+    updateCameraX();
     camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
+    renderer.setSize(w, h, false); // Pass false to prevent overriding responsive CSS styles
   };
   window.addEventListener("resize", handleResize);
 
