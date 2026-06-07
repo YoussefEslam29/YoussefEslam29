@@ -46,6 +46,7 @@ export default function Contact() {
     name: "",
     email: "",
     subject: "",
+    businessSector: "Retail",
     message: "",
   });
   const [status, setStatus] = useState(null); // 'success' | 'error' | null
@@ -64,31 +65,21 @@ export default function Contact() {
     setStatus(null);
 
     try {
-      // EmailJS integration — replace with your IDs
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
-
-      const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          template_params: {
-            from_name: formData.name,
-            from_email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-            to_email: "yousef.islam.hussein@gmail.com",
-          },
-        }),
+        body: JSON.stringify(formData),
       });
 
-      if (res.ok || res.status === 200) {
+      if (res.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          businessSector: "Retail",
+          message: "",
+        });
       } else {
         setStatus("error");
       }
@@ -140,6 +131,26 @@ export default function Contact() {
                 onChange={handleChange}
                 required
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="contact-business" className="form-label">Business Sector</label>
+              <select
+                id="contact-business"
+                name="businessSector"
+                className="form-input"
+                value={formData.businessSector}
+                onChange={handleChange}
+                required
+                style={{ background: "var(--clr-bg-card)", color: "var(--clr-text-primary)", cursor: "pointer" }}
+              >
+                <option value="Retail">Retail</option>
+                <option value="Business / Corporate">Business / Corporate</option>
+                <option value="E-commerce">E-commerce</option>
+                <option value="Health & Medical">Health & Medical</option>
+                <option value="Transport & Logistics">Transport & Logistics</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="contact-subject" className="form-label">Subject</label>
