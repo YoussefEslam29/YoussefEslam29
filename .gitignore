@@ -46,4 +46,8 @@ next-env.d.ts
 # other
 jsconfig.json
 mcp_config.json
-src\data\credentials.json
+src/data/credentials.json
+src/mcp.json
+certificates/*.jpeg
+certificates/*.jpg
+certificates/*.png
