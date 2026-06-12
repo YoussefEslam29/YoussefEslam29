@@ -67,4 +67,4 @@ Go register your domain name right now — before anything else. Search for `you
 ---
 
 *Plan created for Youssef Eslam Hussein — Software & Web Developer*
-*Contact: yousef.islam.hussein@gmail.com | GitHub: github.com/YoussefEslam29
+*Contact: yousef.islam.hussein@gmail.com | GitHub: github.com/YoussefEslam29*
