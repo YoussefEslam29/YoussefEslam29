@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import styles from "./admin.module.css";
 
 const CERT_CATEGORIES = ["Training & Courses", "IEEE & Events", "Competition & Achievements"];
@@ -20,6 +21,7 @@ export default function AdminPage() {
     category: "IEEE & Events",
     image: "",
   });
+  const [unreadCount, setUnreadCount] = useState(0);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -44,7 +46,20 @@ export default function AdminPage() {
   useEffect(() => {
     if (!authenticated) return;
     fetchData();
+    fetchUnreadCount();
   }, [authenticated]);
+
+  const fetchUnreadCount = async () => {
+    try {
+      const res = await fetch("/api/messages");
+      if (res.ok) {
+        const msgs = await res.json();
+        setUnreadCount(msgs.filter((m) => !m.read).length);
+      }
+    } catch {
+      // Silently fail — unread count is not critical
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -184,6 +199,33 @@ export default function AdminPage() {
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
+          <Link
+            href="/admin/messages"
+            className={styles.sidebarLink}
+            style={{ position: "relative" }}
+          >
+            📬 Messages
+            {unreadCount > 0 && (
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minWidth: "20px",
+                  height: "20px",
+                  padding: "0 6px",
+                  borderRadius: "10px",
+                  background: "#ef4444",
+                  color: "white",
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  marginLeft: "auto",
+                }}
+              >
+                {unreadCount}
+              </span>
+            )}
+          </Link>
           <button className={styles.sidebarLink} onClick={handleGitHubSync}>
             🔄 Sync GitHub
           </button>

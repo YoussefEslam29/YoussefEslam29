@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { getCollection } from "@/lib/mongodb";
+import { adminDb, adminMessaging } from "@/lib/firebase-admin";
+import nodemailer from "nodemailer";
 
 export async function POST(request) {
   try {
@@ -10,98 +11,109 @@ export async function POST(request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // Prepare message object
     const contactMessage = {
       name,
       email,
       subject,
       businessSector: businessSector || "Not specified",
       message,
-      createdAt: new Date(),
+      read: false,
+      createdAt: new Date().toISOString(),
     };
 
-    // 1. Try to save to MongoDB as a backup if configured
-    let savedToDb = false;
+    // 1. Save to Firestore
+    let docRef;
     try {
-      const collection = await getCollection("messages");
-      if (collection) {
-        await collection.insertOne(contactMessage);
-        savedToDb = true;
-      }
+      docRef = await adminDb.collection("messages").add(contactMessage);
     } catch (dbError) {
-      console.error("Failed to save contact message to MongoDB:", dbError);
+      console.error("Failed to save message to Firestore:", dbError);
+      return NextResponse.json(
+        { error: "Failed to save message", details: dbError.message },
+        { status: 500 }
+      );
     }
 
-    // 2. Send email via EmailJS API securely
-    const serviceId = process.env.EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.EMAILJS_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.EMAILJS_PUBLIC_KEY || process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-    const privateKey = process.env.EMAILJS_PRIVATE_KEY || process.env.NEXT_PUBLIC_EMAILJS_PRIVATE_KEY;
-
-    let emailSent = false;
-    let emailError = null;
-
-    const isPlaceholder = (key) => !key || key.includes("YOUR_") || key.includes("your_");
-
-    if (isPlaceholder(serviceId) || isPlaceholder(templateId) || isPlaceholder(publicKey)) {
-      console.warn("EmailJS credentials are not configured or are using placeholders. Skipping email send.");
-      emailError = "EmailJS credentials not configured";
-    } else {
+    // 2. Send FCM push notification (non-blocking — don't fail the request if this fails)
+    const fcmToken = process.env.FCM_DEVICE_TOKEN;
+    if (fcmToken) {
       try {
-        const payload = {
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          template_params: {
-            from_name: name,
-            from_email: email,
-            subject: subject,
-            business_sector: businessSector || "Not specified",
-            message: message,
-            to_email: "yousef.islam.hussein@gmail.com",
+        await adminMessaging.send({
+          token: fcmToken,
+          notification: {
+            title: `📩 New message from ${name}`,
+            body: `${subject} — ${message.substring(0, 100)}`,
           },
-        };
+          data: {
+            messageId: docRef.id,
+            from: name,
+            email,
+          },
+        });
+      } catch (fcmError) {
+        console.warn("FCM notification failed (non-critical):", fcmError.message);
+      }
+    }
 
-        if (privateKey && !isPlaceholder(privateKey)) {
-          payload.accessToken = privateKey;
-        }
+    // 3. Send email via Nodemailer (non-blocking — don't fail the request if this fails)
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_APP_PASSWORD;
+    const notificationEmail = process.env.NOTIFICATION_EMAIL || gmailUser;
 
-        const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+    if (gmailUser && gmailPass) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: gmailUser,
+            pass: gmailPass,
+          },
         });
 
-        if (res.ok || res.status === 200) {
-          emailSent = true;
-        } else {
-          const text = await res.text();
-          console.error("EmailJS API error response:", text);
-          emailError = `EmailJS error: ${text}`;
-        }
-      } catch (err) {
-        console.error("Failed to send email via EmailJS:", err);
-        emailError = err.message;
+        await transporter.sendMail({
+          from: `"Portfolio Contact" <${gmailUser}>`,
+          to: notificationEmail,
+          replyTo: email,
+          subject: `[Portfolio] New message: ${subject}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <h2 style="color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 10px;">
+                📩 New Contact Message
+              </h2>
+              <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+                <tr>
+                  <td style="padding: 8px; font-weight: bold; color: #555; width: 140px;">From:</td>
+                  <td style="padding: 8px;">${name}</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                  <td style="padding: 8px; font-weight: bold; color: #555;">Email:</td>
+                  <td style="padding: 8px;"><a href="mailto:${email}">${email}</a></td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; font-weight: bold; color: #555;">Subject:</td>
+                  <td style="padding: 8px;">${subject}</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                  <td style="padding: 8px; font-weight: bold; color: #555;">Business Sector:</td>
+                  <td style="padding: 8px;">${businessSector || "Not specified"}</td>
+                </tr>
+              </table>
+              <div style="background: #f3f0ff; border-left: 4px solid #7c3aed; padding: 16px; margin: 16px 0; border-radius: 4px;">
+                <p style="margin: 0; white-space: pre-wrap;">${message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br/>")}</p>
+              </div>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+              <p style="color: #999; font-size: 12px;">
+                View all messages in your
+                <a href="${process.env.NEXTAUTH_URL || "http://localhost:3000"}/admin/messages">Admin Dashboard →</a>
+              </p>
+            </div>
+          `,
+        });
+      } catch (emailError) {
+        console.warn("Email notification failed (non-critical):", emailError.message);
       }
     }
 
-    // Respond back to the user
-    // If either DB is saved or Email is sent, we treat it as success
-    if (emailSent || savedToDb) {
-      return NextResponse.json({
-        success: true,
-        savedToDb,
-        emailSent,
-        warning: emailError ? "Email failed to send but message was saved" : null
-      });
-    }
-
-    // If both failed (e.g. DB not configured and Email failed)
-    return NextResponse.json({
-      error: "Failed to process message",
-      details: emailError || "Database not configured and EmailJS failed"
-    }, { status: 500 });
-
+    return NextResponse.json({ success: true, messageId: docRef.id });
   } catch (error) {
     console.error("Contact API error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
