@@ -51,3 +51,6 @@ src/mcp.json
 certificates/*.jpeg
 certificates/*.jpg
 certificates/*.png
+
+#public 
+/public/images
