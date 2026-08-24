@@ -1,7 +1,14 @@
 <!-- Header with Animated Typing SVG -->
 <div align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=28&pause=1000&color=3B82F6&center=true&vCenter=true&width=600&lines=Hi+there!+I'm+Youssef+Eslam+Hussein;Computer+Engineering+Student;Full-Stack+Developer+%7C+Cloud+%7C+Robotics" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=28&pause=1000&color=A855F7&center=true&vCenter=true&width=600&lines=Hi+there!+I'm+Youssef+Eslam+Hussein;Computer+Engineering+Student;Full-Stack+Developer+%7C+Cloud+%7C+Robotics" alt="Typing SVG" />
+  </a>
+</div>
+
+<!-- Portfolio Banner -->
+<div align="center">
+  <a href="https://youssef-eslam29.vercel.app/">
+    <img src="https://img.shields.io/badge/🌐_Portfolio-youssef--eslam29.vercel.app-A855F7?style=for-the-badge" alt="Portfolio" />
   </a>
 </div>
 
@@ -33,11 +40,14 @@
 
 ### 👨‍💻 About Me
 
-I am a 3rd-year Computer Engineering student at the Arab Academy for Science, Technology and Maritime Transport. I enjoy building everything from modern web applications to hardware-integrated robotics, while continuously expanding my expertise in cloud architecture. 
+I'm **Youssef Eslam Hussein** — a 3rd-year Computer Engineering student at the Arab Academy for Science, Technology & Maritime Transport (AASTMT), passionate about building things that matter.
 
-- ☁️ Currently active in the **AWS Community Core Team** at my university.
-- 🚀 Building **CashBack Motors**, a digital platform for motorcycle sales.
-- 🤖 Developing **EVE**, a teleoperated robot utilizing ROS 2 and Raspberry Pi.
+From full-stack web applications to teleoperated robots, I thrive at the intersection of software, hardware, and cloud. Based between **Egypt** and **Saudi Arabia**, I bring a global perspective to every project — whether it's a motorcycle sales platform, a machine learning model, or a robot controlled with a PlayStation joystick.
+
+- ☁️ Active member of the **AWS Community Core Team** at my university
+- 🚀 Building **CashBack Motors** — a full-stack digital platform for motorcycle sales
+- 🤖 Engineering **EVE**, a teleoperated robot powered by ROS 2 and Raspberry Pi 4
+- 🌐 Check out my full portfolio → **[youssef-eslam29.vercel.app](https://youssef-eslam29.vercel.app/)**
 
 ---
 
@@ -46,10 +56,14 @@ I am a 3rd-year Computer Engineering student at the Arab Academy for Science, Te
 **Languages & Web:**
 <p align="left">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
   <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
 </p>
 
 **Databases & Cloud:**
@@ -58,36 +72,56 @@ I am a 3rd-year Computer Engineering student at the Arab Academy for Science, Te
   <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
   <img src="https://img.shields.io/badge/MS_SQL_Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white" />
   <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
 </p>
 
 **Hardware & Systems:**
 <p align="left">
   <img src="https://img.shields.io/badge/ROS_2-22314E?style=for-the-badge&logo=ros&logoColor=white" />
   <img src="https://img.shields.io/badge/Raspberry_Pi-C51A4A?style=for-the-badge&logo=Raspberry-Pi&logoColor=white" />
+  <img src="https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white" />
 </p>
 
 ---
 
 ### 🚀 Highlighted Projects
 
-*   **CashBack Motors:** A Next.js and Tailwind CSS web application tailored for motorcycle sales.
-*   **EVE Robot:** A teleoperated robotics project engineered with ROS 2, Raspberry Pi 4, ultrasonic sensors, and a PlayStation controller interface.
-*   **Modified SIC/XE Assembler:** A 2-pass assembler built in Python demonstrating low-level microprocessor architecture principles.
-*   **Bean Plant Classification:** A machine learning model utilizing LightGBM for accurate data classification.
+*   **[CashBack Motors](https://github.com/YoussefEslam29)** — A comprehensive digital platform for motorcycle sales, featuring advanced search, filtering, and a modern responsive interface built with Next.js, React, and Tailwind CSS. Deployed with automated CI/CD via Vercel.
+*   **[EVE Robot](https://github.com/YoussefEslam29)** — A teleoperated robotics project engineered with ROS 2 and Raspberry Pi 4, featuring ultrasonic sensors and a PlayStation controller interface for real-time remote operation.
+*   **[SIC/XE Assembler](https://github.com/YoussefEslam29)** — A complete 2-pass assembler built from scratch in Python, demonstrating deep understanding of low-level microprocessor architecture and machine code generation.
+*   **[Bean Plant Classification](https://github.com/YoussefEslam29)** — A machine learning model using LightGBM, achieving 93.15% accuracy in classifying structural plant variations via a full preprocessing and evaluation pipeline.
+
+📌 See the full project gallery with live demos on my **[portfolio site](https://youssef-eslam29.vercel.app/#projects)**.
+
+---
+
+### 🏆 Certificates & Achievements
+
+| Certificate | Issuer | Date |
+|---|---|---|
+| Data Analysis & Visualization (Grade: Excellent) | ICTHub Egypt | Jan – Feb 2026 |
+| IEEE AAST VGM Event | IEEE AAST Student Branch | Mar 2025 |
+| IEEE AAST Cloudify Event | IEEE AAST Student Branch | Feb 2025 |
+| Cybersecurity Vigilance Expedition 2024 | IEEE Alex SB | 2024 |
+| Robotics: From Zero to Hero 2024 | IEEE AAST AlexSB & Makers | 2024 |
+
+📜 View all certificates with official documents on my **[portfolio site](https://youssef-eslam29.vercel.app/#certificates)**.
 
 ---
 
 ### 📊 GitHub Activity
 
 <div align="center">
-<!-- Animated GitHub Stats Card (Using Extended Fallback Server) -->
-  <img src="https://github-stats-extended.vercel.app/api?username=YoussefEslam29&show_icons=true&theme=radium&hide_border=true&title_color=3B82F6" alt="GitHub Stats" width="48%" />
-  
-  <!-- Animated Top Languages Card (Using Extended Fallback Server) -->
-  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=YoussefEslam29&layout=compact&theme=radium&hide_border=true&title_color=3B82F6" alt="Top Languages" width="48%" />
+  <img src="https://github-stats-extended.vercel.app/api?username=YoussefEslam29&show_icons=true&theme=radium&hide_border=true&title_color=A855F7" alt="GitHub Stats" width="48%" />
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=YoussefEslam29&layout=compact&theme=radium&hide_border=true&title_color=A855F7" alt="Top Languages" width="48%" />
 </div>
 
 <div align="center">
-  <!-- Animated Streak Stats (Using Demolab Server) -->
-  <img src="https://streak-stats.demolab.com/?user=YoussefEslam29&theme=radium&hide_border=true&stroke=3B82F6&ring=3B82F6&fire=3B82F6&v=1" alt="GitHub Streak" />
+  <img src="https://streak-stats.demolab.com/?user=YoussefEslam29&theme=radium&hide_border=true&stroke=A855F7&ring=A855F7&fire=A855F7&v=1" alt="GitHub Streak" />
+</div>
+
+---
+
+<div align="center">
+  <sub>© 2026 Youssef Eslam Hussein · Crafted with purpose · <a href="https://youssef-eslam29.vercel.app/">youssef-eslam29.vercel.app</a></sub>
 </div>
