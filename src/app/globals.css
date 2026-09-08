@@ -528,6 +528,9 @@ textarea.form-input {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-sm);
   font-size: var(--fs-small);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
 }
 
 .status-error {
@@ -537,4 +540,7 @@ textarea.form-input {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-sm);
   font-size: var(--fs-small);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
 }

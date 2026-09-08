@@ -19,7 +19,7 @@ export default function About() {
           {/* Text Column */}
           <div className={styles.text}>
             <p className={styles.intro}>
-              I&apos;m <strong>Youssef Eslam Hussein</strong> — a 3rd-year{" "}
+              I&apos;m <strong>Youssef Eslam Hussein</strong> — a 4th-year{" "}
               <span className={styles.highlight}>Computer Engineering</span>{" "}
               student at the Arab Academy for Science, Technology &amp; Maritime
               Transport, passionate about building things that matter.

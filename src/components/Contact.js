@@ -186,13 +186,15 @@ export default function Contact() {
             </button>
 
             {status === "success" && (
-              <div className="status-success">
-                ✓ Message sent successfully! I&apos;ll get back to you soon.
+              <div className="status-success" role="status">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                <span>Message sent. I&apos;ll get back to you soon.</span>
               </div>
             )}
             {status === "error" && (
-              <div className="status-error">
-                ✗ Failed to send. Please email me directly at yousef.islam.hussein@gmail.com
+              <div className="status-error" role="alert">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Could not send. Please email me directly at yousef.islam.hussein@gmail.com</span>
               </div>
             )}
           </form>

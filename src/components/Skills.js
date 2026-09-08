@@ -47,37 +47,11 @@ export default function Skills() {
           {filtered.map((skill) => (
             <div key={skill.id} className={styles.card}>
               <div className={styles.cardInner}>
-                {/* Proficiency Ring */}
-                <div className={styles.ring}>
-                  <svg viewBox="0 0 100 100" className={styles.ringSvg}>
-                    <circle
-                      cx="50" cy="50" r="42"
-                      fill="none"
-                      stroke="rgba(168,85,247,0.1)"
-                      strokeWidth="4"
-                    />
-                    <circle
-                      cx="50" cy="50" r="42"
-                      fill="none"
-                      stroke="url(#purpleGrad)"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeDasharray={`${skill.proficiency * 2.64} ${264 - skill.proficiency * 2.64}`}
-                      strokeDashoffset="66"
-                      className={styles.ringProgress}
-                    />
-                    <defs>
-                      <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#6C2BD9" />
-                        <stop offset="100%" stopColor="#A855F7" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <span className={styles.ringIcon}>{skill.icon}</span>
-                </div>
+                <span className={styles.iconBox} aria-hidden="true">
+                  {skill.icon}
+                </span>
 
                 <h3 className={styles.cardTitle}>{skill.name}</h3>
-                <span className={styles.cardProficiency}>{skill.proficiency}%</span>
 
                 {/* Hover Details */}
                 <div className={styles.cardOverlay}>

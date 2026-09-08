@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -11,7 +12,13 @@ export default function Footer() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.left}>
           <span className={styles.brand}>
-            <span className={styles.brandIcon}>Y</span>
+            <Image
+              src="/logo-owl.png"
+              alt=""
+              width={18}
+              height={26}
+              className={styles.brandIcon}
+            />
             Youssef Eslam
           </span>
           <p className={styles.copy}>

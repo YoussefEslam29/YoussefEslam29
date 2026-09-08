@@ -40,26 +40,14 @@
   color: var(--clr-purple-300);
 }
 
-.logoIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: var(--grad-accent);
-  border-radius: var(--radius-sm);
-  font-size: 1.1rem;
-  font-weight: var(--fw-black);
-  color: white;
-  letter-spacing: -0.05em;
+.logoMark {
+  width: auto;
+  height: 32px;
+  object-fit: contain;
 }
 
 .logoText {
   letter-spacing: -0.02em;
-}
-
-.logoDot {
-  color: var(--clr-accent);
 }
 
 /* Desktop Links */

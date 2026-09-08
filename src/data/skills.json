@@ -4,7 +4,6 @@
     "name": "JavaScript",
     "category": "Languages & Web",
     "icon": "JS",
-    "proficiency": 90,
     "description": "ES6+, async patterns, DOM manipulation, and full-stack JS development"
   },
   {
@@ -12,7 +11,6 @@
     "name": "TypeScript",
     "category": "Languages & Web",
     "icon": "TS",
-    "proficiency": 85,
     "description": "Type-safe development with interfaces, generics, and strict typing"
   },
   {
@@ -20,7 +18,6 @@
     "name": "Python",
     "category": "Languages & Web",
     "icon": "PY",
-    "proficiency": 80,
     "description": "Scripting, automation, machine learning, and systems programming"
   },
   {
@@ -28,7 +25,6 @@
     "name": "Java",
     "category": "Languages & Web",
     "icon": "JV",
-    "proficiency": 75,
     "description": "Object-oriented programming, data structures, and algorithms"
   },
   {
@@ -36,7 +32,6 @@
     "name": "React",
     "category": "Languages & Web",
     "icon": "RE",
-    "proficiency": 88,
     "description": "Component architecture, hooks, state management, and SPA development"
   },
   {
@@ -44,7 +39,6 @@
     "name": "Next.js",
     "category": "Languages & Web",
     "icon": "NX",
-    "proficiency": 85,
     "description": "Server-side rendering, API routes, app router, and full-stack React"
   },
   {
@@ -52,7 +46,6 @@
     "name": "Tailwind CSS",
     "category": "Languages & Web",
     "icon": "TW",
-    "proficiency": 90,
     "description": "Utility-first CSS framework for rapid UI development"
   },
   {
@@ -60,7 +53,6 @@
     "name": "HTML / CSS",
     "category": "Languages & Web",
     "icon": "HC",
-    "proficiency": 95,
     "description": "Semantic markup, responsive design, animations, and modern CSS"
   },
   {
@@ -68,7 +60,6 @@
     "name": "PostgreSQL",
     "category": "Databases & Cloud",
     "icon": "PG",
-    "proficiency": 80,
     "description": "Relational database design, complex queries, and data modeling"
   },
   {
@@ -76,7 +67,6 @@
     "name": "MongoDB",
     "category": "Databases & Cloud",
     "icon": "MG",
-    "proficiency": 82,
     "description": "NoSQL document databases, aggregation pipelines, and Atlas"
   },
   {
@@ -84,7 +74,6 @@
     "name": "MS SQL Server",
     "category": "Databases & Cloud",
     "icon": "SQ",
-    "proficiency": 75,
     "description": "Enterprise database management and T-SQL development"
   },
   {
@@ -92,7 +81,6 @@
     "name": "AWS",
     "category": "Databases & Cloud",
     "icon": "AW",
-    "proficiency": 70,
     "description": "Cloud architecture, EC2, S3, Lambda, and community core team"
   },
   {
@@ -100,7 +88,6 @@
     "name": "ROS 2",
     "category": "Hardware & Systems",
     "icon": "RO",
-    "proficiency": 72,
     "description": "Robot Operating System for teleoperated robotics projects"
   },
   {
@@ -108,7 +95,6 @@
     "name": "Raspberry Pi",
     "category": "Hardware & Systems",
     "icon": "RP",
-    "proficiency": 78,
     "description": "Embedded systems, GPIO, sensor integration, and IoT projects"
   }
 ]

@@ -40,7 +40,7 @@ export async function POST(request) {
         await adminMessaging.send({
           token: fcmToken,
           notification: {
-            title: `📩 New message from ${name}`,
+            title: `New message from ${name}`,
             body: `${subject} — ${message.substring(0, 100)}`,
           },
           data: {
@@ -77,7 +77,7 @@ export async function POST(request) {
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
               <h2 style="color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 10px;">
-                📩 New Contact Message
+                New Contact Message
               </h2>
               <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
                 <tr>

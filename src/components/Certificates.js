@@ -150,7 +150,7 @@ export default function Certificates() {
               <div className={styles.cardBody}>
                 <div className={styles.cardMeta}>
                   <span className={styles.cardCategory}>{cert.category}</span>
-                  <span className={styles.cardDate}>{cert.date}</span>
+                  {cert.date && <span className={styles.cardDate}>{cert.date}</span>}
                 </div>
                 <h3 className={styles.cardTitle}>{cert.title}</h3>
                 <p className={styles.cardIssuer}>{cert.issuer}</p>

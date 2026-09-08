@@ -41,10 +41,6 @@ export default function Hero() {
       {/* Content */}
       <div className={`container ${styles.content}`}>
         <div className={styles.textBlock}>
-          <p className={styles.greeting}>
-            <span className={styles.wave}>👋</span> Hello, I&apos;m
-          </p>
-
           <h1 className={styles.name}>
             Youssef
             <br />

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { useActiveSection } from "@/lib/animations";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Navbar.module.css";
@@ -98,10 +99,15 @@ export default function Navbar() {
               handleNav("home");
             }}
           >
-            <span className={styles.logoIcon}>Y</span>
-            <span className={styles.logoText}>
-              Youssef<span className={styles.logoDot}>.</span>
-            </span>
+            <Image
+              src="/logo-owl.png"
+              alt=""
+              width={22}
+              height={32}
+              className={styles.logoMark}
+              priority
+            />
+            <span className={styles.logoText}>Youssef Eslam</span>
           </a>
 
           {/* Desktop Links */}

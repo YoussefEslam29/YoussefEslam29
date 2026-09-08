@@ -73,21 +73,6 @@
   animation: fade-in-up 1s var(--ease-out-expo) 0.3s both;
 }
 
-.greeting {
-  font-size: var(--fs-body);
-  color: var(--clr-text-secondary);
-  margin-bottom: var(--space-md);
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.wave {
-  display: inline-block;
-  animation: bounce-subtle 1.5s infinite;
-  font-size: 1.4rem;
-}
-
 .name {
   font-size: var(--fs-hero);
   font-weight: var(--fw-black);
@@ -215,9 +200,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  .greeting {
-    justify-content: center;
   }
   .tagline {
     text-align: center;
