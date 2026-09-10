@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
+import { scrollBehavior } from "@/lib/animations";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: scrollBehavior() });
   };
 
   return (
@@ -22,9 +24,16 @@ export default function Footer() {
             Youssef Eslam
           </span>
           <p className={styles.copy}>
-            &copy; {new Date().getFullYear()} Youssef Eslam Hussein. Crafted with
-            purpose.
+            &copy; {new Date().getFullYear()} Youssef Eslam Hussein
           </p>
+          <nav className={styles.legal} aria-label="Legal">
+            <Link href="/privacy" className={styles.legalLink}>
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className={styles.legalLink}>
+              Terms and Conditions
+            </Link>
+          </nav>
         </div>
 
         <div className={styles.socials}>

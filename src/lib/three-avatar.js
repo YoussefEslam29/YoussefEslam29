@@ -6,11 +6,18 @@ import * as THREE from "three";
  */
 export function createAvatarScene(canvas) {
   // ---- Renderer ----
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: true,
-  });
+  // WebGL can be unavailable (old device, blocked by policy, GPU blocklist).
+  // Fail quietly rather than throwing inside an effect.
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+    });
+  } catch {
+    return () => {};
+  }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
   renderer.setClearColor(0x000000, 0);

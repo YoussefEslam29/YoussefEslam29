@@ -1,7 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
-import { useTypingEffect } from "@/lib/animations";
-import { createAvatarScene } from "@/lib/three-avatar";
+import { useTypingEffect, scrollBehavior } from "@/lib/animations";
 import styles from "./Hero.module.css";
 
 const TYPED_STRINGS = [
@@ -17,14 +16,34 @@ export default function Hero() {
 
   useEffect(() => {
     if (!canvasRef.current) return;
-    const cleanup = createAvatarScene(canvasRef.current);
-    return cleanup;
+
+    // three.js is ~700KB. Importing it here keeps it out of the initial
+    // bundle, and skips the download entirely for visitors who have asked
+    // for reduced motion.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let cleanup;
+    let cancelled = false;
+
+    import("@/lib/three-avatar")
+      .then(({ createAvatarScene }) => {
+        if (cancelled || !canvasRef.current) return;
+        cleanup = createAvatarScene(canvasRef.current);
+      })
+      .catch(() => {
+        // No WebGL, or the chunk failed to load: the hero text stands alone.
+      });
+
+    return () => {
+      cancelled = true;
+      if (cleanup) cleanup();
+    };
   }, []);
 
   const scrollToAbout = () => {
     const el = document.getElementById("about");
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      el.scrollIntoView({ behavior: scrollBehavior() });
     }
   };
 
@@ -55,21 +74,22 @@ export default function Hero() {
           </div>
 
           <p className={styles.tagline}>
-            Computer Engineering student at AASTMT. Building bold web
-            applications, cloud solutions, and robotic systems.
+            Computer Engineering student at AASTMT in Alexandria. I build web
+            applications with React and Next.js, and work on ROS 2 robotics and
+            machine learning projects alongside them.
           </p>
 
           <div className={styles.actions}>
             <a href="#projects" className="btn btn-primary" onClick={(e) => {
               e.preventDefault();
-              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+              document.getElementById("projects")?.scrollIntoView({ behavior: scrollBehavior() });
             }}>
               View My Work
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </a>
             <a href="#contact" className="btn btn-ghost" onClick={(e) => {
               e.preventDefault();
-              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+              document.getElementById("contact")?.scrollIntoView({ behavior: scrollBehavior() });
             }}>
               Get In Touch
             </a>

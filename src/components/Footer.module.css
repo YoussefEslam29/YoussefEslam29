@@ -33,6 +33,23 @@
   object-fit: contain;
 }
 
+.legal {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-xs);
+}
+
+.legalLink {
+  font-size: var(--fs-xs);
+  color: var(--clr-text-secondary);
+}
+
+.legalLink:hover {
+  color: var(--clr-accent);
+  text-decoration: underline;
+}
+
 .copy {
   font-size: var(--fs-xs);
   color: var(--clr-text-muted);

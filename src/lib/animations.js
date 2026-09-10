@@ -1,6 +1,14 @@
 "use client";
 import { useEffect, useRef, useCallback, useState } from "react";
 
+/** "smooth" is ignored for visitors who asked for reduced motion. */
+export function scrollBehavior() {
+  if (typeof window === "undefined") return "auto";
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth";
+}
+
 /**
  * Hook to observe elements and add a 'revealed' class when they enter the viewport.
  */
@@ -10,6 +18,12 @@ export function useReveal(options = {}) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Nothing to animate towards if the visitor asked for reduced motion.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.classList.add("revealed");
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -37,6 +51,12 @@ export function useRevealGroup(options = {}) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Nothing to animate towards if the visitor asked for reduced motion.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.classList.add("revealed");
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {

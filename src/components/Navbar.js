@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { useActiveSection } from "@/lib/animations";
-import { motion, AnimatePresence } from "framer-motion";
+import { useActiveSection, scrollBehavior } from "@/lib/animations";
+import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import styles from "./Navbar.module.css";
 
 const NAV_LINKS = [
@@ -74,14 +74,14 @@ export default function Navbar() {
       if (el) {
         const offset = 80;
         const y = el.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: y, behavior: "smooth" });
+        window.scrollTo({ top: y, behavior: scrollBehavior() });
       }
     },
     []
   );
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -218,6 +218,6 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </>
+    </MotionConfig>
   );
 }

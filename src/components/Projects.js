@@ -6,49 +6,90 @@ import styles from "./Projects.module.css";
 
 const CATEGORIES = ["All", "Web", "Robotics", "ML", "Systems"];
 
+// Only these repositories are pulled from GitHub. Syncing "most recently
+// updated" dragged coursework and the profile README onto the portfolio, so
+// the list is explicit. Add a repo name here to feature it.
+const FEATURED_REPOS = {
+  "DEKKA-EVENTS": "Web",
+  "alexandria-barber-book": "Web",
+  Incarnatrun: "Web",
+  "S.N.S": "Web",
+};
+
+// Repo descriptions are written on GitHub and can contain emoji, which do not
+// belong on this site. Strip them rather than trusting the source.
+const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2190}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu;
+
+function cleanText(value) {
+  return (value || "").replace(EMOJI, "").replace(/\s+/g, " ").trim();
+}
+
+function titleFromRepo(name) {
+  return name
+    .replace(/[-_]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [ghProjects, setGhProjects] = useState([]);
   const titleRef = useReveal();
   const gridRef = useRevealGroup({ threshold: 0.05 });
 
-  // Fetch GitHub repos client-side
+  // Pull the featured repositories from GitHub so their descriptions and
+  // links stay current without anyone editing this file.
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchRepos() {
       try {
         const res = await fetch(
-          "https://api.github.com/users/YoussefEslam29/repos?sort=updated&per_page=20&type=owner",
-          { headers: { Accept: "application/vnd.github.v3+json" } }
+          "https://api.github.com/users/YoussefEslam29/repos?sort=updated&per_page=100&type=owner",
+          {
+            headers: { Accept: "application/vnd.github.v3+json" },
+            signal: controller.signal,
+          }
         );
         if (!res.ok) return;
         const repos = await res.json();
+        if (!Array.isArray(repos)) return;
+
         const mapped = repos
-          .filter((r) => !r.fork && !r.archived)
-          .slice(0, 6)
+          .filter((r) => !r.fork && !r.archived && r.name in FEATURED_REPOS)
           .map((r) => ({
             id: `gh-${r.name}`,
-            title: r.name.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-            description: r.description || "Repository on GitHub.",
+            title: titleFromRepo(r.name),
+            description: cleanText(r.description),
             techStack: [r.language].filter(Boolean),
-            category: "Web",
+            category: FEATURED_REPOS[r.name],
             github: r.html_url,
             live: r.homepage || null,
             featured: false,
             fromGitHub: true,
-          }));
+          }))
+          // A repo with no usable description would render an empty card.
+          .filter((r) => r.description.length > 0);
+
         setGhProjects(mapped);
       } catch {
-        // silently fail
+        // Offline, rate-limited or aborted: the curated projects still render.
       }
     }
+
     fetchRepos();
+    return () => controller.abort();
   }, []);
 
-  // Merge: manual projects first, then GitHub repos (no duplicates)
-  const manualIds = new Set(projectsData.map((p) => p.id));
+  // Curated projects first, then the featured repos, skipping any already
+  // listed by hand (compared case-insensitively).
+  const manualIds = new Set(projectsData.map((p) => p.id.toLowerCase()));
   const allProjects = [
     ...projectsData,
-    ...ghProjects.filter((g) => !manualIds.has(g.id.replace("gh-", ""))),
+    ...ghProjects.filter(
+      (g) => !manualIds.has(g.id.replace("gh-", "").toLowerCase())
+    ),
   ];
 
   const filtered =

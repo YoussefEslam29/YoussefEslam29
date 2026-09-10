@@ -1,5 +1,6 @@
 "use client";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import Image from "next/image";
 import { useReveal, useRevealGroup } from "@/lib/animations";
 import credentialsData from "@/data/credentials.json";
 import styles from "./Certificates.module.css";
@@ -12,8 +13,11 @@ export default function Certificates() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxImage, setLightboxImage] = useState(null);
   const [lightboxTitle, setLightboxTitle] = useState("");
+  const closeButtonRef = useRef(null);
+  const lastFocusedRef = useRef(null);
 
   const certificates = credentialsData.certificates;
+  const education = credentialsData.education || [];
 
   const filtered =
     activeCategory === "All"
@@ -21,6 +25,8 @@ export default function Certificates() {
       : certificates.filter((c) => c.category === activeCategory);
 
   const openLightbox = useCallback((image, title) => {
+    // Remember what had focus so it can be restored on close.
+    lastFocusedRef.current = document.activeElement;
     setLightboxImage(image);
     setLightboxTitle(title);
     document.body.style.overflow = "hidden";
@@ -30,16 +36,32 @@ export default function Certificates() {
     setLightboxImage(null);
     setLightboxTitle("");
     document.body.style.overflow = "";
+    const last = lastFocusedRef.current;
+    if (last && typeof last.focus === "function") last.focus();
   }, []);
 
-  // Close lightbox on Escape key
+  // Escape closes it; Tab stays inside it. Without the trap, keyboard focus
+  // walks off into the page behind the modal.
   useEffect(() => {
+    if (!lightboxImage) return;
+
+    closeButtonRef.current?.focus();
+
     const handleKey = (e) => {
-      if (e.key === "Escape") closeLightbox();
+      if (e.key === "Escape") {
+        closeLightbox();
+        return;
+      }
+      if (e.key === "Tab") {
+        // The close button is the only focusable control in the dialog.
+        e.preventDefault();
+        closeButtonRef.current?.focus();
+      }
     };
+
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [closeLightbox]);
+  }, [lightboxImage, closeLightbox]);
 
   return (
     <section className={`section ${styles.certificates}`} id="certificates">
@@ -56,6 +78,31 @@ export default function Certificates() {
           </p>
           <div className="divider" />
         </div>
+
+        {/* Education */}
+        {education.length > 0 && (
+          <div className={styles.education}>
+            <h3 className={styles.educationHeading}>Education</h3>
+            {education.map((item) => (
+              <div key={item.id} className={styles.educationItem}>
+                <div className={styles.educationTop}>
+                  <span className={styles.educationDegree}>{item.degree}</span>
+                  <span className={`mono ${styles.educationYear}`}>
+                    {item.year}
+                  </span>
+                </div>
+                <p className={styles.educationInstitution}>
+                  {item.institution}
+                </p>
+                {item.description && (
+                  <p className={styles.educationDescription}>
+                    {item.description}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Download CV Button */}
         <div className={styles.cvRow}>
@@ -121,10 +168,12 @@ export default function Certificates() {
                   }
                 }}
               >
-                <img
+                <Image
                   src={cert.image}
-                  alt={`${cert.title} — ${cert.issuer}`}
-                  loading="lazy"
+                  alt={`${cert.title}, issued by ${cert.issuer}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className={styles.cardImageInner}
                 />
                 <div className={styles.cardImageOverlay}>
                   <svg
@@ -207,6 +256,7 @@ export default function Certificates() {
           aria-label={`Certificate: ${lightboxTitle}`}
         >
           <button
+            ref={closeButtonRef}
             className={styles.lightboxClose}
             onClick={closeLightbox}
             aria-label="Close lightbox"
@@ -229,6 +279,9 @@ export default function Certificates() {
             className={styles.lightboxContent}
             onClick={(e) => e.stopPropagation()}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element --
+                the full-size view needs the image's natural aspect ratio and
+                is only requested when a visitor opens it */}
             <img
               src={lightboxImage}
               alt={lightboxTitle}

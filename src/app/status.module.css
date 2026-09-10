@@ -1,0 +1,27 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--clr-bg-primary);
+  text-align: center;
+}
+
+.code {
+  font-size: var(--fs-small);
+  letter-spacing: 0.2em;
+  color: var(--clr-accent);
+  margin-bottom: var(--space-md);
+}
+
+.title {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-black);
+  color: var(--clr-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.text {
+  color: var(--clr-text-secondary);
+  max-width: 460px;
+  margin: 0 auto var(--space-xl);
+}

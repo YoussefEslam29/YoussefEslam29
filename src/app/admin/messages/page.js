@@ -16,24 +16,36 @@ export default function MessagesPage() {
   const [fcmLoading, setFcmLoading] = useState(false);
 
   // ── Auth ──────────────────────────────────────────────────────────
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const adminUser = process.env.NEXT_PUBLIC_ADMIN_USER || "admin";
-    const adminPass = process.env.NEXT_PUBLIC_ADMIN_PASS || "xixya2024";
-
-    if (credentials.username === adminUser && credentials.password === adminPass) {
-      setAuthenticated(true);
-      sessionStorage.setItem("admin_auth", "true");
-      setLoginError(null);
-    } else {
-      setLoginError("Invalid credentials");
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      });
+      if (res.ok) {
+        setAuthenticated(true);
+        setLoginError(null);
+      } else {
+        setLoginError("Invalid credentials");
+      }
+    } catch {
+      setLoginError("Could not reach the server");
     }
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("admin_auth") === "true") {
-      setAuthenticated(true);
-    }
+    let active = true;
+    fetch("/api/admin/session")
+      .then((res) => (res.ok ? res.json() : { authenticated: false }))
+      .then((data) => {
+        if (active && data.authenticated) setAuthenticated(true);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
   }, []);
 
   // ── Fetch Messages ────────────────────────────────────────────────
@@ -57,11 +69,15 @@ export default function MessagesPage() {
 
   useEffect(() => {
     if (!authenticated) return;
-    fetchMessages();
 
-    // Auto-refresh every 30 seconds
+    // Deferred so the first load's state updates land after this effect.
+    const initial = setTimeout(() => fetchMessages(), 0);
     const interval = setInterval(() => fetchMessages(), 30000);
-    return () => clearInterval(interval);
+
+    return () => {
+      clearTimeout(initial);
+      clearInterval(interval);
+    };
   }, [authenticated, fetchMessages]);
 
   // ── Actions ───────────────────────────────────────────────────────
@@ -217,8 +233,8 @@ export default function MessagesPage() {
         </nav>
         <button
           className={styles.logoutBtn}
-          onClick={() => {
-            sessionStorage.removeItem("admin_auth");
+          onClick={async () => {
+            await fetch("/api/admin/logout", { method: "POST" }).catch(() => {});
             setAuthenticated(false);
           }}
         >

@@ -28,7 +28,7 @@
 
   --clr-text-primary:  #F0E6FF;
   --clr-text-secondary:#A8A0BF;
-  --clr-text-muted:    #6B6480;
+  --clr-text-muted:    #857EA0;
   --clr-text-accent:   #B794F6;
 
   --clr-border:        rgba(168, 85, 247, 0.12);
@@ -462,6 +462,32 @@ h1, h2, h3, h4, h5, h6 {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* ---------- Reduced Motion ---------- */
+/* Honour the OS setting: no animation, no transitions, no hijacked scroll. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .stagger-children > * {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

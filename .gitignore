@@ -52,5 +52,4 @@ certificates/*.jpeg
 certificates/*.jpg
 certificates/*.png
 
-#public 
-/public/images
+# (public/images is committed: the hero photo must reach production)

@@ -19,42 +19,24 @@ export default function About() {
           {/* Text Column */}
           <div className={styles.text}>
             <p className={styles.intro}>
-              I&apos;m <strong>Youssef Eslam Hussein</strong> — a 4th-year{" "}
+              I&apos;m <strong>Youssef Eslam Hussein</strong>, a 4th-year{" "}
               <span className={styles.highlight}>Computer Engineering</span>{" "}
               student at the Arab Academy for Science, Technology &amp; Maritime
-              Transport, passionate about building things that matter.
+              Transport in Alexandria.
             </p>
             <p>
-              From full-stack web applications to teleoperated robots, I thrive
-              at the intersection of software, hardware, and cloud. I&apos;m
-              currently active as a member of the{" "}
-              <span className={styles.highlight}>AWS Community Core Team</span>,
-              and I&apos;m always looking for the next challenge that pushes me
-              to learn something new.
+              My work runs from full-stack web applications to teleoperated
+              robots. I am a member of the{" "}
+              <span className={styles.highlight}>AWS Community Core Team</span>{" "}
+              at my university.
             </p>
             <p>
-              Based between <strong>Egypt</strong> and{" "}
-              <strong>Saudi Arabia</strong>, I bring a global perspective to
-              every project I work on. Whether it&apos;s a motorcycle sales
-              platform, a machine learning model, or a robot controlled with a
-              PlayStation joystick — I build it, I ship it, and I make it count.
+              I am based between <strong>Egypt</strong> and{" "}
+              <strong>Saudi Arabia</strong>. Recent projects include a
+              motorcycle sales platform built on Next.js, a robot driven over
+              ROS 2 from a PlayStation controller, and a two-pass SIC/XE
+              assembler written from scratch.
             </p>
-
-            {/* Quick Stats */}
-            <div className={styles.stats}>
-              <div className={styles.stat}>
-                <span className={styles.statNumber}>10+</span>
-                <span className={styles.statLabel}>Projects Built</span>
-              </div>
-              <div className={styles.stat}>
-                <span className={styles.statNumber}>3+</span>
-                <span className={styles.statLabel}>Years Coding</span>
-              </div>
-              <div className={styles.stat}>
-                <span className={styles.statNumber}>2</span>
-                <span className={styles.statLabel}>Countries</span>
-              </div>
-            </div>
           </div>
 
           {/* Decorative Column */}

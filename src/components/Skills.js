@@ -23,8 +23,8 @@ export default function Skills() {
           <p className={`mono ${styles.label}`}>&lt;skills /&gt;</p>
           <h2 className="section-title">What I Work With</h2>
           <p className="section-subtitle" style={{ margin: "0 auto var(--space-xl)" }}>
-            Technologies and tools I use to bring ideas to life — from frontend
-            frameworks to embedded systems.
+            The languages, frameworks, and hardware I work with, from
+            frontend frameworks to embedded systems.
           </p>
           <div className="divider" />
         </div>

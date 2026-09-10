@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import styles from "./admin.module.css";
 
@@ -25,31 +25,39 @@ export default function AdminPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Simple client-side auth check — in production, use NextAuth
-    const adminUser = process.env.NEXT_PUBLIC_ADMIN_USER || "admin";
-    const adminPass = process.env.NEXT_PUBLIC_ADMIN_PASS || "xixya2024";
-
-    if (credentials.username === adminUser && credentials.password === adminPass) {
-      setAuthenticated(true);
-      sessionStorage.setItem("admin_auth", "true");
-    } else {
-      setMessage({ type: "error", text: "Invalid credentials" });
+    // Credentials never reach the browser bundle: the server compares them
+    // and replies with an httpOnly session cookie.
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      });
+      if (res.ok) {
+        setAuthenticated(true);
+        setMessage(null);
+      } else {
+        setMessage({ type: "error", text: "Invalid credentials" });
+      }
+    } catch {
+      setMessage({ type: "error", text: "Could not reach the server" });
     }
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("admin_auth") === "true") {
-      setAuthenticated(true);
-    }
+    let active = true;
+    fetch("/api/admin/session")
+      .then((res) => (res.ok ? res.json() : { authenticated: false }))
+      .then((data) => {
+        if (active && data.authenticated) setAuthenticated(true);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
   }, []);
 
-  useEffect(() => {
-    if (!authenticated) return;
-    fetchData();
-    fetchUnreadCount();
-  }, [authenticated]);
-
-  const fetchUnreadCount = async () => {
+  const fetchUnreadCount = useCallback(async () => {
     try {
       const res = await fetch("/api/messages");
       if (res.ok) {
@@ -57,11 +65,11 @@ export default function AdminPage() {
         setUnreadCount(msgs.filter((m) => !m.read).length);
       }
     } catch {
-      // Silently fail — unread count is not critical
+      // Silently fail: the unread count is not critical.
     }
-  };
+  }, []);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const [projRes, skillRes, certRes] = await Promise.all([
         fetch("/api/projects"),
@@ -75,7 +83,17 @@ export default function AdminPage() {
     } catch {
       setMessage({ type: "error", text: "Failed to fetch data" });
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!authenticated) return;
+    // Deferred so the state updates land after this effect, not during it.
+    const id = setTimeout(() => {
+      fetchData();
+      fetchUnreadCount();
+    }, 0);
+    return () => clearTimeout(id);
+  }, [authenticated, fetchData, fetchUnreadCount]);
 
   const handleGitHubSync = async () => {
     try {
@@ -232,8 +250,8 @@ export default function AdminPage() {
         </nav>
         <button
           className={styles.logoutBtn}
-          onClick={() => {
-            sessionStorage.removeItem("admin_auth");
+          onClick={async () => {
+            await fetch("/api/admin/logout", { method: "POST" }).catch(() => {});
             setAuthenticated(false);
           }}
         >

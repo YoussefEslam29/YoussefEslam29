@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import projectsData from "@/data/projects.json";
+import { isAdminRequest } from "@/lib/admin-auth";
 
 export async function GET() {
+  if (!(await isAdminRequest())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const collection = await getCollection("projects");
     if (collection) {
@@ -20,6 +25,10 @@ export async function GET() {
 }
 
 export async function POST(request) {
+  if (!(await isAdminRequest())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const collection = await getCollection("projects");
