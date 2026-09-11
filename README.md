@@ -170,7 +170,7 @@ deploying, set the same variables in **Vercel → Settings → Environment Varia
 | Variable | Purpose |
 |---|---|
 | `ADMIN_USER` / `ADMIN_PASS` | The only credentials that unlock `/admin`. If either is unset, login is impossible by design. |
-| `ADMIN_SESSION_SECRET` | Key that signs the 8-hour session cookie. Falls back to `NEXTAUTH_SECRET`. |
+| `ADMIN_SESSION_SECRET` | Key that signs the 8-hour session cookie. Falls back to `NEXTAUTH_SECRET`. 
 
 **Content & contact**
 
