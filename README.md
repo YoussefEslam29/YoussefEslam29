@@ -71,6 +71,7 @@ From full-stack web applications to teleoperated robots, I thrive at the interse
   <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
   <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
   <img src="https://img.shields.io/badge/MS_SQL_Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white" />
+  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" />
   <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" />
   <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
 </p>
@@ -119,6 +120,113 @@ From full-stack web applications to teleoperated robots, I thrive at the interse
 <div align="center">
   <img src="https://streak-stats.demolab.com/?user=YoussefEslam29&theme=radium&hide_border=true&stroke=A855F7&ring=A855F7&fire=A855F7&v=1" alt="GitHub Streak" />
 </div>
+
+---
+
+## 📦 About This Repository
+
+This repo is both my GitHub profile README **and** the source code of the portfolio it links to:
+**[youssef-eslam29.vercel.app](https://youssef-eslam29.vercel.app/)**.
+
+It is a Next.js App Router application — a single-page portfolio (hero, about, skills, projects,
+certificates, contact) backed by a small set of API routes and a password-protected admin panel for
+managing content and reading contact messages.
+
+### Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router) + React 19, JavaScript |
+| Styling | CSS Modules (`*.module.css`) plus a global `globals.css` |
+| Motion | Framer Motion, and a `three.js` avatar in the hero |
+| Content store | MongoDB — with JSON files in `src/data/` as an automatic fallback |
+| Messages | Firebase Firestore, e-mail via Nodemailer (Gmail), push via Firebase Cloud Messaging |
+| Auth | Custom HMAC-signed session cookie (`src/lib/admin-auth.js`) |
+| Hosting | Vercel |
+
+### Quick start
+
+```bash
+git clone https://github.com/YoussefEslam29/YoussefEslam29.git
+cd YoussefEslam29
+npm install
+# create .env.local — see "Environment variables" below
+npm run dev          # http://localhost:3000
+```
+
+Other scripts: `npm run build` (production build), `npm start` (serve the build), `npm run lint`.
+
+**Nothing configured?** The site still runs. Without `MONGODB_URI` the projects, skills and
+certificates sections read from `src/data/*.json`; only the contact form and the admin panel need
+real credentials.
+
+### Environment variables
+
+Create `.env.local` in the project root. It is git-ignored — never commit real secrets. When
+deploying, set the same variables in **Vercel → Settings → Environment Variables**.
+
+**Admin panel** (`/admin`)
+
+| Variable | Purpose |
+|---|---|
+| `ADMIN_USER` / `ADMIN_PASS` | The only credentials that unlock `/admin`. If either is unset, login is impossible by design. |
+| `ADMIN_SESSION_SECRET` | Key that signs the 8-hour session cookie. Falls back to `NEXTAUTH_SECRET`. |
+
+**Content & contact**
+
+| Variable | Purpose |
+|---|---|
+| `MONGODB_URI` | Connection string for the `portfolio` database (projects, skills, certificates). Omit to use the JSON fallback. |
+| `GMAIL_USER` / `GMAIL_APP_PASSWORD` | Gmail account and [app password](https://support.google.com/accounts/answer/185833) used to send contact-form mail. |
+| `NOTIFICATION_EMAIL` | Where contact-form notifications are delivered. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL used for metadata, sitemap and Open Graph. Defaults to the Vercel URL. |
+
+**Firebase** — server credentials `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`,
+plus the browser SDK keys `NEXT_PUBLIC_FIREBASE_API_KEY`, `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`,
+`NEXT_PUBLIC_FIREBASE_PROJECT_ID`, `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`,
+`NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`, `NEXT_PUBLIC_FIREBASE_APP_ID` and
+`NEXT_PUBLIC_FIREBASE_VAPID_KEY`, plus `FCM_DEVICE_TOKEN` for push notifications on new messages.
+
+### Project structure
+
+```
+src/
+├── app/
+│   ├── page.js              # the single-page portfolio (composes the sections)
+│   ├── layout.js            # metadata, Open Graph, theme
+│   ├── sitemap.js robots.js opengraph-image.js
+│   ├── privacy/ terms/      # legal pages
+│   ├── admin/               # login + dashboard, admin/messages inbox
+│   └── api/
+│       ├── admin/           # login, logout, session
+│       ├── projects/ skills/ certificates/   # GET is public, writes are admin-only
+│       ├── contact/         # public: stores the message, mails and pushes it
+│       ├── messages/        # admin-only: read and delete contact messages
+│       └── github/sync/     # admin-only: pull public repos into the projects list
+├── components/              # Navbar, Hero, About, Skills, Projects, Certificates, Contact, Footer
+├── data/                    # projects.json, skills.json — the no-database fallback
+└── lib/                     # mongodb, firebase-admin/client, admin-auth, github, animations, three-avatar
+public/                      # images, résumé PDF, certificates, FCM service worker
+```
+
+### How the content flows
+
+- **Public reads** — `GET /api/projects`, `/api/skills` and `/api/certificates` return MongoDB
+  documents when a database is configured, and fall back to `src/data/*.json` otherwise.
+- **Writes are admin-only** — every `POST`/`PUT`/`DELETE` goes through `isAdminRequest()`, which
+  verifies the signed session cookie before touching data.
+- **Contact form** — `POST /api/contact` writes to Firestore, e-mails `NOTIFICATION_EMAIL` and fires
+  an FCM push. Messages are read and deleted from `/admin/messages`.
+- **GitHub sync** — `POST /api/github/sync` fetches my public repos (5-minute cache in
+  `src/lib/github.js`), categorises them and stores them as projects.
+
+### Security notes
+
+- `next.config.mjs` sets `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`,
+  `Permissions-Policy` and HSTS on every response, and marks `/admin` and `/api` `noindex, nofollow`
+  with `Cache-Control: no-store` on the API.
+- Admin credentials are compared in constant time and there is no default account — an unconfigured
+  deployment simply has no way in.
 
 ---
 
