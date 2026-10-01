@@ -40,12 +40,19 @@ for (const vp of VIEWPORTS) {
     const name = (el) =>
       `${el.tagName.toLowerCase()} "${(el.getAttribute("aria-label") || el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 32)}"`;
 
-    // 1. Anything running past the right edge (clipped or not)
+    // 1. Anything running past the right edge (clipped or not). Items in a
+    //    sideways-scrolling row (the filter chips) are meant to be swiped to.
+    const inScroller = (el) => {
+      for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+        if (/(auto|scroll)/.test(getComputedStyle(p).overflowX)) return true;
+      }
+      return false;
+    };
     const overflow = [];
     for (const sec of document.querySelectorAll("main > section, footer")) {
       for (const el of sec.querySelectorAll("p, h1, h2, h3, a, button, img, form, li, dd")) {
         const b = el.getBoundingClientRect();
-        if (b.width && shown(el) && (b.right > vw + 1 || b.left < -1)) overflow.push(`${sec.id || "footer"}: ${name(el)} right=${Math.round(b.right)}`);
+        if (b.width && shown(el) && (b.right > vw + 1 || b.left < -1) && !inScroller(el)) overflow.push(`${sec.id || "footer"}: ${name(el)} right=${Math.round(b.right)}`);
       }
     }
     // 2. Tap targets under 44x44 (links inside running text are exempt)
@@ -64,7 +71,10 @@ for (const vp of VIEWPORTS) {
       const fs = parseFloat(getComputedStyle(el).fontSize);
       if (fs < 12) tiny.add(`"${walk.currentNode.textContent.trim().slice(0, 24)}" ${fs.toFixed(1)}px`);
     }
-    // 4. Hero calls to action inside the first screen
+    // 4. Hero calls to action inside the first screen, and not under the
+    //    phone tab bar when it is showing
+    const tabBar = document.querySelector('nav[aria-label="Sections"]');
+    const fold = tabBar && shown(tabBar) ? Math.min(vh, tabBar.getBoundingClientRect().top) : vh;
     const ctas = [...document.querySelectorAll("#home .btn")].map((b) => ({
       label: b.textContent.trim(),
       bottom: Math.round(b.getBoundingClientRect().bottom),
@@ -73,14 +83,14 @@ for (const vp of VIEWPORTS) {
       [...document.querySelectorAll("main > section")].map((s) => [s.id, Math.round(s.getBoundingClientRect().height)])
     );
     return {
-      vw, vh,
+      vw, vh, fold,
       hScroll: document.documentElement.scrollWidth > vw,
       pageHeight: document.documentElement.scrollHeight,
       sections, overflow, small, tiny: [...tiny], ctas,
     };
   });
 
-  const ctasBelowFold = r.ctas.filter((c) => c.bottom > r.vh);
+  const ctasBelowFold = r.ctas.filter((c) => c.bottom > r.fold);
   const problems = [
     r.hScroll && "page scrolls sideways",
     r.overflow.length && `${r.overflow.length} element(s) run past the screen edge`,

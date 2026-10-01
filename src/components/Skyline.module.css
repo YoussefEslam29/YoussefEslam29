@@ -110,11 +110,12 @@
 }
 
 /* ---------- Small screens ---------- */
-/* The city becomes a band under the text instead of a backdrop behind it. */
-@media (max-width: 768px) {
+/* Phones in portrait: the city becomes a band under the text instead of a
+   backdrop behind it. Landscape phones keep the full-bleed desktop city. */
+@media (max-width: 767px) and (orientation: portrait) {
   .scene {
     top: auto;
-    height: clamp(280px, 50vh, 460px);
+    height: var(--band, clamp(220px, 34svh, 340px));
   }
 
   .beam {

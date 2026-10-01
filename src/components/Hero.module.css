@@ -171,19 +171,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   background: rgba(13, 7, 8, 0.35);
   border: 1px solid rgba(244, 231, 211, 0.3);
   color: var(--clr-cream);
   transition: color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast);
-}
-
-.socialLink:hover {
-  color: var(--clr-amber);
-  border-color: var(--clr-amber);
-  background: rgba(13, 7, 8, 0.6);
-  transform: translateY(-3px);
 }
 
 /* ---------- Scroll Indicator ---------- */
@@ -250,19 +243,38 @@
   transition: color var(--transition-fast);
 }
 
-.scrollDown:hover .scrollText {
-  color: var(--clr-amber);
-}
-
 @keyframes cursor-blink {
   0%, 49%   { opacity: 1; }
   50%, 100% { opacity: 0; }
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 768px) {
+/* ---------- Hover (mouse only) ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .socialLink:hover {
+    color: var(--clr-amber);
+    border-color: var(--clr-amber);
+    background: rgba(13, 7, 8, 0.6);
+    transform: translateY(-3px);
+  }
+
+  .scrollDown:hover .scrollText {
+    color: var(--clr-amber);
+  }
+}
+
+/* Searchlights, blinking lights and the cursor stop once the hero is off screen */
+.hero[data-offscreen] *,
+.hero[data-offscreen] *::before,
+.hero[data-offscreen] *::after {
+  animation-play-state: paused !important;
+}
+
+/* ---------- Phones, portrait: the city becomes a band under the text ---------- */
+@media (max-width: 767px) and (orientation: portrait) {
   .hero {
+    --band: clamp(220px, 34svh, 340px);          /* read by Skyline.module.css */
     align-items: flex-start;
+    min-height: calc(100svh - var(--bottom-nav-h) - var(--safe-bottom));
   }
 
   .hero::before {
@@ -272,13 +284,12 @@
   }
 
   .content {
+    min-height: 0;
     align-items: flex-start;
     justify-content: center;
     text-align: center;
-    padding-top: 6.5rem;
-    /* Leave the lower band to the skyline (its height is set in
-       Skyline.module.css); the text may run into its empty top 36px of sky */
-    padding-bottom: calc(clamp(280px, 50vh, 460px) - 36px);
+    padding-top: calc(5.25rem + var(--safe-top));
+    padding-bottom: calc(var(--band) - 36px);     /* text may use the band's empty top 36px of sky */
   }
 
   .textBlock {
@@ -289,6 +300,7 @@
 
   .name {
     align-items: center;
+    margin-bottom: 1.1rem;
   }
 
   .nameLast {
@@ -299,18 +311,38 @@
     min-width: 0;
     width: min(100%, 34ch);
     justify-content: center;
+    margin-bottom: 1rem;
   }
 
   .plaqueText {
-    font-size: 0.74rem;
+    font-size: 0.75rem;
   }
 
   .tagline {
     text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.4rem;
   }
 
+  /* Primary action full width; the two secondary actions share a row */
   .actions {
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.25rem;
+  }
+
+  .actions > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .actions :global(.btn-ghost) {
+    padding-inline: 0.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
   }
 
   .socials {
@@ -322,11 +354,84 @@
   }
 }
 
-@media (max-width: 480px) {
+/* Small, short phones (iPhone SE 1st gen and the like): tighten the stack so
+   every button clears the tab bar */
+@media (max-width: 767px) and (orientation: portrait) and (max-height: 620px) {
+  .content {
+    padding-top: calc(4.5rem + var(--safe-top));
+  }
+
+  .nameFirst {
+    font-size: min(var(--fs-hero), 12svh);
+  }
+
+  .name {
+    margin-bottom: 0.85rem;
+  }
+
+  .plaque {
+    margin-bottom: 0.8rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.1rem;
+  }
+}
+
+/* Narrow phones: the two side-by-side buttons keep their labels on one line */
+@media (max-width: 359px) {
+  .actions :global(.btn-ghost) {
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* ---------- Landscape phones: text left, city behind, everything above the fold ---------- */
+@media (orientation: landscape) and (max-height: 500px) {
+  .content {
+    padding-top: calc(4rem + var(--safe-top));
+    padding-bottom: 1rem;
+  }
+
+  .nameFirst {
+    font-size: min(var(--fs-hero), 21svh);
+  }
+
+  .nameLast {
+    font-size: min(clamp(1.55rem, 3.7vw, 3.4rem), 8svh);
+    margin-top: 0.3rem;
+  }
+
+  .name {
+    margin-bottom: 0.8rem;
+  }
+
+  .plaque {
+    margin-bottom: 0.8rem;
+    min-height: 2.2rem;
+    padding-block: 0.35rem;
+  }
+
+  /* The About section says the same; the buttons matter more here */
+  .tagline {
+    display: none;
+  }
+
   .actions {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    max-width: 320px;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .actions :global(.btn) {
+    min-height: var(--tap);
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .scrollDown {
+    display: none;
   }
 }

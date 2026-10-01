@@ -1,20 +1,13 @@
 "use client";
 import { useRef, useEffect } from "react";
-import { useTypingEffect, scrollBehavior } from "@/lib/animations";
+import { scrollToSection } from "@/lib/mobile";
+import TypedRole from "./TypedRole";
 import styles from "./Hero.module.css";
-
-const TYPED_STRINGS = [
-  "Software & Web Developer",
-  "Cloud Architecture Enthusiast",
-  "Robotics Builder",
-  "Full-Stack Engineer",
-];
 
 // `scene` is the server-rendered <Skyline />, passed in from the page so its
 // SVG is sent as HTML with no JavaScript attached.
 export default function Hero({ scene }) {
   const heroRef = useRef(null);
-  const displayText = useTypingEffect(TYPED_STRINGS, 70, 35, 2200);
 
   // Publish scroll progress through the hero as --scroll (0 to 1). The
   // skyline planes read it to sink at different rates.
@@ -27,6 +20,8 @@ export default function Hero({ scene }) {
     let last = -1;
     const update = () => {
       frame = 0;
+      // An open drawer or lightbox pins the page at scrollY 0; keep the city still
+      if (document.body.dataset.overlay) return;
       const progress = Math.min(Math.max(window.scrollY / (hero.offsetHeight || 1), 0), 1);
       if (progress === last) return;
       last = progress;
@@ -44,9 +39,18 @@ export default function Hero({ scene }) {
     };
   }, []);
 
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: scrollBehavior() });
-  };
+  // The searchlights, aviation lights and cursor pause once the hero has
+  // scrolled away (see .hero[data-offscreen] in the CSS).
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    const io = new IntersectionObserver(([entry]) =>
+      hero.toggleAttribute("data-offscreen", !entry.isIntersecting)
+    );
+    io.observe(hero);
+    return () => io.disconnect();
+  }, []);
+
 
   return (
     <section className={styles.hero} id="home" ref={heroRef}>
@@ -65,8 +69,7 @@ export default function Hero({ scene }) {
               robotics builder, full-stack engineer.
             </span>
             <span className={styles.plaqueText} aria-hidden="true">
-              {displayText}
-              <span className={styles.cursor} />
+              <TypedRole />
             </span>
           </p>
 
@@ -82,7 +85,7 @@ export default function Hero({ scene }) {
               className="btn btn-light"
               onClick={(e) => {
                 e.preventDefault();
-                scrollTo("projects");
+                scrollToSection("projects");
               }}
             >
               View My Work
@@ -93,7 +96,7 @@ export default function Hero({ scene }) {
               className="btn btn-ghost"
               onClick={(e) => {
                 e.preventDefault();
-                scrollTo("contact");
+                scrollToSection("contact");
               }}
             >
               Get In Touch
@@ -125,7 +128,7 @@ export default function Hero({ scene }) {
       </div>
 
       {/* Scroll Indicator */}
-      <button className={styles.scrollDown} onClick={() => scrollTo("about")} aria-label="Scroll to about section">
+      <button className={styles.scrollDown} onClick={() => scrollToSection("about")} aria-label="Scroll to about section">
         <span className={styles.scrollText}>Scroll</span>
         <span className={styles.scrollTrack}>
           <span className={styles.scrollDiamond} />

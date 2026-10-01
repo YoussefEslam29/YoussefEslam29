@@ -76,40 +76,28 @@ export function useRevealGroup(options = {}) {
 }
 
 /**
- * Typing effect hook — returns the current displayed text.
+ * Typing effect hook — returns the current displayed text. One timer per
+ * step (the pause included), cleared on every change, so nothing leaks.
  */
 export function useTypingEffect(strings, typingSpeed = 80, deletingSpeed = 40, pauseTime = 2000) {
-  const [displayText, setDisplayText] = useState("");
-  const [stringIndex, setStringIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [s, setS] = useState({ index: 0, chars: 0, deleting: false });
 
   useEffect(() => {
-    const currentString = strings[stringIndex];
+    const full = strings[s.index];
+    const atEnd = !s.deleting && s.chars === full.length;
+    const delay = atEnd ? pauseTime : s.deleting ? deletingSpeed : typingSpeed;
+    const t = setTimeout(() => {
+      setS((p) => {
+        const str = strings[p.index];
+        if (!p.deleting && p.chars === str.length) return { ...p, deleting: true };
+        if (p.deleting && p.chars === 0) return { index: (p.index + 1) % strings.length, chars: 0, deleting: false };
+        return { ...p, chars: p.chars + (p.deleting ? -1 : 1) };
+      });
+    }, delay);
+    return () => clearTimeout(t);
+  }, [s, strings, typingSpeed, deletingSpeed, pauseTime]);
 
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayText(currentString.substring(0, charIndex + 1));
-        setCharIndex((prev) => prev + 1);
-
-        if (charIndex + 1 === currentString.length) {
-          setTimeout(() => setIsDeleting(true), pauseTime);
-        }
-      } else {
-        setDisplayText(currentString.substring(0, charIndex - 1));
-        setCharIndex((prev) => prev - 1);
-
-        if (charIndex - 1 === 0) {
-          setIsDeleting(false);
-          setStringIndex((prev) => (prev + 1) % strings.length);
-        }
-      }
-    }, isDeleting ? deletingSpeed : typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, stringIndex, strings, typingSpeed, deletingSpeed, pauseTime]);
-
-  return displayText;
+  return strings[s.index].slice(0, s.chars);
 }
 
 /**
