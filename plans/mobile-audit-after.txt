@@ -1,0 +1,33 @@
+
+== 320x568 small phone  page 9756px (17.2 screens)
+   sections: {"home":713,"about":1311,"skills":1846,"projects":1854,"certificates":2030,"contact":1583}
+   OK
+
+== 375x667 iPhone SE  page 9011px (13.5 screens)
+   sections: {"home":736,"about":1161,"skills":1734,"projects":1659,"certificates":1803,"contact":1499}
+   OK
+
+== 390x844 iPhone 14  page 8965px (10.6 screens)
+   sections: {"home":796,"about":1135,"skills":1690,"projects":1632,"certificates":1793,"contact":1499}
+   OK
+
+== 412x915 Pixel 7  page 8914px (9.7 screens)
+   sections: {"home":851,"about":1135,"skills":1663,"projects":1585,"certificates":1762,"contact":1499}
+   OK
+
+== 667x375 SE landscape  page 7319px (19.5 screens)
+   sections: {"home":375,"about":1018,"skills":1153,"projects":1466,"certificates":1603,"contact":1496}
+   OK
+
+== 844x390 landscape  page 9305px (23.9 screens)
+   sections: {"home":390,"about":1103,"skills":1430,"projects":1214,"certificates":3221,"contact":1740}
+   OK
+
+== 768x1024 tablet  page 10594px (10.3 screens)
+   sections: {"home":1024,"about":1163,"skills":1758,"projects":1331,"certificates":3311,"contact":1800}
+   OK
+
+All mobile checks passed.
+
+Note: GitHub API was rate-limited during this run, so the 3 GitHub-synced project cards were not loaded; the Projects section is about 3 cards shorter here than live.
+(Lighthouse not run: use Chrome DevTools > Lighthouse > Mobile for scores.)

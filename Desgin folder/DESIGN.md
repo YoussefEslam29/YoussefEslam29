@@ -106,11 +106,59 @@ Each one appears where it means something, not everywhere:
 
 - **Hero.** The skyline is server-rendered SVG, with no client JavaScript: stars, a red moon, neon-traced towers, and a neon street. `--scroll` sinks the distant planes faster as you scroll. The searchlights sweep. The owl-signal and the name "warm up" on load.
 - **About.** A personnel file on paper, with an inked AVAILABLE stamp.
-- **Skills.** Each monogram sits in a ring of lit neon tube, coloured by category. Red is Languages & Web, pink is Databases & Cloud, amber is Hardware & Systems, and the filter buttons carry the colour key. On hover, the tile switches on like a sign: dark glass in a tube frame of its colour, with the description.
+- **Skills.** Each monogram sits in a ring of lit neon tube, coloured by category. Red is Languages & Web, pink is Databases & Cloud, amber is Hardware & Systems, and the filter buttons carry the colour key. On hover or tap, the tile switches on like a sign: dark glass in a tube frame of its colour, with the description.
 - **Projects.** Poster cards with a lacquer band. The category is the card's kicker. On hover the lights come on.
 - **Certificates.** Each certificate sits in a mat with a brass fillet. The lightbox uses a double brass frame.
 - **Contact.** A stage spotlight from above, and the neon canopy below.
 - **404 and errors.** The status code is a neon sign in the inline face.
+
+## Phones
+
+The desktop layout is the reference; phones get their own arrangement of the
+same pieces. Media queries are written out by hand (CSS has no custom media
+yet), always one of these:
+
+| Regime | Query | What changes |
+|---|---|---|
+| Phone | `(max-width: 767px)` | Single column, phone spacing, swipeable filter chips |
+| Phone, portrait | `(max-width: 767px) and (orientation: portrait)` | Bottom tab bar; the skyline becomes a band under the hero text |
+| Short landscape | `(orientation: landscape) and (max-height: 500px)` | Compact top bar and drawer; hero text over the full city |
+| Compact nav | `(max-width: 1023px)` | The top bar shows the burger instead of links |
+| Desktop | `(min-width: 1024px)` | Unchanged |
+| Hover | `(hover: hover) and (pointer: fine)` | The **only** place `:hover` effects live; on touch they stick after a tap |
+| Touch | `(hover: none)` | `:active` press feedback and "tap" hints |
+
+Only one navigation pattern shows at a time:
+
+| Screen | Top bar | Sections |
+|---|---|---|
+| Phone, portrait | Logo (home) + CV button | **Bottom tab bar** |
+| Phone landscape, tablet | Logo + burger | Side drawer |
+| Desktop | Logo + links + "Let's Talk" | — |
+
+- **The tab bar** is a marquee rail along the bottom: glass-black, a brass
+  double hairline on top, five tabs with icon and label. A short neon tube
+  glides to the current tab. It slides away while a form field has focus and
+  under the drawer or lightbox, and clears the home indicator.
+- **The nav indicators** (the desktop underline and the tab bar's tube) follow
+  a line 40% down the screen, so tall sections light up as soon as they reach
+  it. A clicked link lights at once instead of trailing through the sections
+  in between.
+- **Skill tiles** switch on with a tap as well as hover, and from the keyboard.
+  Keep skill descriptions to **70 characters or fewer**; the phone tiles are
+  sized for that.
+- **Certificates** become compact cards on phones, thumbnail on the left; the
+  whole card opens the lightbox. In the lightbox, swipe left and right to step
+  through, swipe down to close, and Back closes it too. Every gesture also has
+  a visible button.
+- **Contact** puts the tap-to-call and tap-to-email cards before the form.
+- **Sizes.** Everything tappable is at least **44 × 44 px**, and no text is
+  smaller than **12 px**.
+- **Safe areas.** `viewport-fit=cover` is on; the bars, drawer, lightbox and
+  gutters pad with the `--safe-*` tokens.
+- **Checking.** With the dev server running, `node scripts/mobile-audit.mjs`
+  checks seven phone, landscape and tablet sizes for content past the screen
+  edge, small tap targets, small text, and hero buttons below the fold.
 
 ## Editing the skyline
 
