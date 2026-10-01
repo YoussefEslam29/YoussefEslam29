@@ -11,6 +11,12 @@
   align-items: center;
 }
 
+/* Grid items default to min-width: auto and grew to the paper file's width,
+   pushing the text past the screen edge on phones. Let them shrink. */
+.grid > * {
+  min-width: 0;
+}
+
 /* ---------- Text ---------- */
 .text p {
   color: var(--clr-text-secondary);
@@ -87,8 +93,9 @@
   margin-bottom: 1.1rem;
   /* Deco double rule */
   border-bottom: 3px double rgba(42, 20, 20, 0.55);
+  flex-wrap: wrap;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #6B2A22;
@@ -116,7 +123,7 @@
 
 .fact dt {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: #7A4A3E;
@@ -163,7 +170,20 @@
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
   }
+  /* Left-aligned: long centred paragraphs are hard to read */
   .text {
-    text-align: center;
+    text-align: start;
+  }
+}
+
+@media (max-width: 767px) {
+  .intro {
+    font-size: 1.2rem;
+  }
+  .visual {
+    padding: 1.5rem 0.25rem 0.5rem;
+  }
+  .file {
+    padding: 1.5rem 1.25rem 1.6rem;
   }
 }
