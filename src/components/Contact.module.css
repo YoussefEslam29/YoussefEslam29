@@ -63,11 +63,6 @@
   transition: border-color var(--transition-base), transform var(--transition-base);
 }
 
-.infoCard:hover {
-  border-color: var(--clr-brass-line);
-  transform: translateX(6px);
-}
-
 .infoIcon {
   display: flex;
   align-items: center;
@@ -82,15 +77,19 @@
 }
 
 .infoTitle {
+  display: block;
   margin-bottom: 0.2rem;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 400;
+  line-height: 1.05;
   letter-spacing: 0.24em;
+  text-transform: uppercase;
   color: var(--clr-brass);
 }
 
 .infoValue {
+  display: block;
   font-size: var(--fs-small);
   color: var(--clr-cream);
   text-decoration: none;
@@ -98,16 +97,18 @@
   transition: color var(--transition-fast);
 }
 
-/* Underlined, so the links read as links without relying on colour */
-a.infoValue {
+/* The whole card is the link (tap to call or write); the value stays
+   underlined so it reads as a link without relying on colour */
+a.infoCard {
+  min-height: var(--tap);
+  color: inherit;
+  text-decoration: none;
+}
+
+a.infoCard .infoValue {
   text-decoration: underline;
   text-decoration-color: var(--clr-brass-line);
   text-underline-offset: 4px;
-}
-
-a.infoValue:hover {
-  color: var(--clr-amber);
-  text-decoration-color: currentColor;
 }
 
 /* ---------- Social Links ---------- */
@@ -130,11 +131,31 @@ a.infoValue:hover {
   transition: color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
-.socialLink:hover {
-  color: var(--clr-neon);
-  border-color: var(--clr-neon);
-  box-shadow: 0 0 16px rgba(255, 74, 69, 0.3);
-  transform: translateY(-4px);
+/* ---------- Hover (mouse only) and touch feedback ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .infoCard:hover {
+    border-color: var(--clr-brass-line);
+    transform: translateX(6px);
+  }
+
+  a.infoCard:hover .infoValue {
+    color: var(--clr-amber);
+    text-decoration-color: currentColor;
+  }
+
+  .socialLink:hover {
+    color: var(--clr-neon);
+    border-color: var(--clr-neon);
+    box-shadow: 0 0 16px rgba(255, 74, 69, 0.3);
+    transform: translateY(-4px);
+  }
+}
+
+@media (hover: none) {
+  a.infoCard:active,
+  .socialLink:active {
+    border-color: var(--clr-amber);
+  }
 }
 
 /* ---------- Responsive ---------- */
@@ -145,6 +166,37 @@ a.infoValue:hover {
   }
   .socials {
     justify-content: center;
+  }
+}
+
+/* Phones: the quick actions come before the form, two to a row */
+@media (max-width: 767px) {
+  .grid {
+    gap: var(--space-xl);
+  }
+  .info {
+    order: -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+  .infoWide,
+  .socials {
+    grid-column: 1 / -1;
+  }
+  .infoCard:not(.infoWide) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.85rem;
+  }
+  .infoIcon {
+    width: 40px;
+    height: 40px;
+  }
+  .socials {
+    justify-content: center;
+    margin-top: 0.25rem;
   }
 }
 
