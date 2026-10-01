@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useReveal, useRevealGroup } from "@/lib/animations";
+import { useReveal, useRevealGroup, scrollBehavior } from "@/lib/animations";
 import skillsData from "@/data/skills.json";
 import styles from "./Skills.module.css";
 
@@ -15,6 +15,8 @@ const TONE = {
 
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState("All");
+  // The tile lit by a tap or the keyboard (touch screens have no hover)
+  const [openId, setOpenId] = useState(null);
   const titleRef = useReveal();
   const gridRef = useRevealGroup({ threshold: 0.1 });
 
@@ -44,17 +46,37 @@ export default function Skills() {
               type="button"
               className={`filter-btn ${TONE[cat] ? `${styles.legend} ${TONE[cat]}` : ""}`}
               aria-pressed={activeCategory === cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={(e) => {
+                setActiveCategory(cat);
+                setOpenId(null);
+                // Keep the chosen chip fully on screen in the swipeable row
+                e.currentTarget.scrollIntoView({ inline: "nearest", block: "nearest", behavior: scrollBehavior() });
+              }}
             >
               {cat}
             </button>
           ))}
         </div>
+        <p className={styles.hint}>Tap a tile to light it up</p>
 
         {/* Skills Grid */}
         <div className={`${styles.grid} stagger-children`} ref={gridRef}>
           {filtered.map((skill) => (
-            <div key={skill.id} className={`${styles.card} ${TONE[skill.category] || styles.toneRed}`}>
+            <div
+              key={skill.id}
+              className={`${styles.card} ${TONE[skill.category] || styles.toneRed}`}
+              data-open={openId === skill.id || undefined}
+            >
+              {/* The whole tile is the switch. Kept apart from the heading:
+                  a <button> cannot contain an <h3>. */}
+              <button
+                type="button"
+                className={styles.toggle}
+                aria-expanded={openId === skill.id}
+                aria-controls={`skill-sign-${skill.id}`}
+                aria-label={`${skill.name} details`}
+                onClick={() => setOpenId((id) => (id === skill.id ? null : skill.id))}
+              />
               <div className={styles.cardInner}>
                 <span className={styles.ring} aria-hidden="true">
                   {skill.icon}
@@ -62,8 +84,8 @@ export default function Skills() {
 
                 <h3 className={styles.cardTitle}>{skill.name}</h3>
 
-                {/* Hover Details: the tile switches on like a neon sign */}
-                <div className={styles.sign}>
+                {/* Details: the tile switches on like a neon sign, on hover or tap */}
+                <div className={styles.sign} id={`skill-sign-${skill.id}`}>
                   <p className={styles.signName} aria-hidden="true">{skill.name}</p>
                   <p className={styles.cardDesc}>{skill.description}</p>
                   <span className={styles.cardCategory}>{skill.category}</span>
