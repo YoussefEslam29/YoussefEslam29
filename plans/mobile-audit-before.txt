@@ -1,0 +1,128 @@
+
+== 320x568 small phone  page 16045px (28.2 screens)
+   sections: {"home":991,"about":1293,"skills":3702,"projects":3067,"certificates":4921,"contact":1745}
+   FAIL: 7 element(s) run past the screen edge
+   FAIL: 37 tap target(s) under 44px
+   FAIL: 52 piece(s) of text under 12px
+   FAIL: hero buttons below the first screen: Get In Touch, Download CV
+     - about: p "I'm Youssef Eslam Hussein, a 4th" right=385
+     - about: p "My work runs from full-stack web" right=385
+     - about: p "I am based between Egypt and Sau" right=385
+     - about: dd "Youssef Eslam" right=336
+     - about: dd "Full-Stack Developer" right=338
+     - about: dd "Web · Cloud · Robotics" right=340
+     - about: dd "Available" right=342
+     - a "Youssef Eslam" 191x32
+     - button "Toggle menu" 34x34
+     - a "GitHub" 42x42
+     - a "LinkedIn" 42x42
+     - a "X / Twitter" 42x42
+
+== 375x667 iPhone SE  page 15712px (23.6 screens)
+   sections: {"home":982,"about":1293,"skills":3702,"projects":2800,"certificates":4886,"contact":1723}
+   FAIL: 3 element(s) run past the screen edge
+   FAIL: 38 tap target(s) under 44px
+   FAIL: 52 piece(s) of text under 12px
+     - about: p "I'm Youssef Eslam Hussein, a 4th" right=385
+     - about: p "My work runs from full-stack web" right=385
+     - about: p "I am based between Egypt and Sau" right=385
+     - a "Youssef Eslam" 191x32
+     - button "Toggle menu" 34x34
+     - a "GitHub" 42x42
+     - a "LinkedIn" 42x42
+     - a "X / Twitter" 42x42
+     - button "All" 63x42
+     - button "Languages & Web" 189x42
+     - button "Databases & Cloud" 201x42
+     - button "Hardware & Systems" 219x42
+
+== 390x844 iPhone 14  page 14362px (17.0 screens)
+   sections: {"home":1071,"about":1319,"skills":2185,"projects":2799,"certificates":4914,"contact":1748}
+   FAIL: 38 tap target(s) under 44px
+   FAIL: 52 piece(s) of text under 12px
+     - a "Youssef Eslam" 191x32
+     - button "Toggle menu" 34x34
+     - a "GitHub" 42x42
+     - a "LinkedIn" 42x42
+     - a "X / Twitter" 42x42
+     - button "All" 63x42
+     - button "Languages & Web" 189x42
+     - button "Databases & Cloud" 201x42
+     - button "Hardware & Systems" 219x42
+     - button "All" 63x42
+     - button "Web" 70x42
+     - button "Robotics" 107x42
+
+== 412x915 Pixel 7  page 14411px (15.7 screens)
+   sections: {"home":1106,"about":1309,"skills":2174,"projects":2767,"certificates":4966,"contact":1764}
+   FAIL: 38 tap target(s) under 44px
+   FAIL: 52 piece(s) of text under 12px
+     - a "Youssef Eslam" 191x32
+     - button "Toggle menu" 34x34
+     - a "GitHub" 42x42
+     - a "LinkedIn" 42x42
+     - a "X / Twitter" 42x42
+     - button "All" 63x42
+     - button "Languages & Web" 189x42
+     - button "Databases & Cloud" 201x42
+     - button "Hardware & Systems" 219x42
+     - button "All" 63x42
+     - button "Web" 70x42
+     - button "Robotics" 107x42
+
+== 667x375 SE landscape  page 11064px (29.5 screens)
+   sections: {"home":785,"about":1122,"skills":1661,"projects":2431,"certificates":3161,"contact":1720}
+   FAIL: 38 tap target(s) under 44px
+   FAIL: 52 piece(s) of text under 12px
+   FAIL: hero buttons below the first screen: View My Work, Get In Touch, Download CV
+     - a "Youssef Eslam" 191x32
+     - button "Toggle menu" 34x34
+     - a "GitHub" 42x42
+     - a "LinkedIn" 42x42
+     - a "X / Twitter" 42x42
+     - button "All" 63x42
+     - button "Languages & Web" 189x42
+     - button "Databases & Cloud" 201x42
+     - button "Hardware & Systems" 219x42
+     - button "All" 63x42
+     - button "Web" 70x42
+     - button "Robotics" 107x42
+
+== 844x390 landscape  page 10028px (25.7 screens)
+   sections: {"home":638,"about":1101,"skills":1407,"projects":1793,"certificates":3174,"contact":1732}
+   FAIL: 43 tap target(s) under 44px
+   FAIL: 52 piece(s) of text under 12px
+   FAIL: hero buttons below the first screen: View My Work, Get In Touch, Download CV
+     - a "Youssef Eslam" 123x42
+     - a "Home" 57x33
+     - a "About" 61x33
+     - a "Skills" 64x33
+     - a "Projects" 85x33
+     - a "Certificates" 110x33
+     - a "Contact" 78x33
+     - a "GitHub" 42x42
+     - a "LinkedIn" 42x42
+     - a "X / Twitter" 42x42
+     - button "All" 63x42
+     - button "Languages & Web" 189x42
+
+== 768x1024 tablet  page 10941px (10.7 screens)
+   sections: {"home":1024,"about":1161,"skills":1683,"projects":1853,"certificates":3244,"contact":1792}
+   FAIL: 38 tap target(s) under 44px
+   FAIL: 52 piece(s) of text under 12px
+     - a "Youssef Eslam" 191x32
+     - button "Toggle menu" 34x34
+     - a "GitHub" 42x42
+     - a "LinkedIn" 42x42
+     - a "X / Twitter" 42x42
+     - button "All" 63x42
+     - button "Languages & Web" 189x42
+     - button "Databases & Cloud" 201x42
+     - button "Hardware & Systems" 219x42
+     - button "All" 63x42
+     - button "Web" 70x42
+     - button "Robotics" 107x42
+
+19 problem(s) found.
+
+(Lighthouse baseline not recorded: run it from Chrome DevTools > Lighthouse > Mobile if you want before/after scores.)
