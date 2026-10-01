@@ -93,8 +93,10 @@ export const metadata = {
 export const viewport = {
   // The top of the hero sky, so the browser chrome runs into it.
   themeColor: "#2A0507",
+  colorScheme: "dark", // dark native pickers and scrollbars (the <select> on Android)
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover", // enables env(safe-area-inset-*) for the bottom bar and landscape notches
 };
 
 export default function RootLayout({ children }) {
