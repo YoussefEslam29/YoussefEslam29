@@ -1,5 +1,6 @@
 .loginWrap {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,6 +51,7 @@
 .admin {
   display: flex;
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--clr-bg-primary);
 }
 
@@ -243,5 +245,18 @@
   }
   .sidebarNav {
     flex-direction: row;
+  }
+  /* Usable on a phone: one swipeable row, 44px targets */
+  .sidebar {
+    scrollbar-width: none;
+  }
+  .sidebarLink,
+  .logoutBtn,
+  .actionBtn {
+    min-height: 44px;
+    white-space: nowrap;
+  }
+  .actionBtn {
+    min-width: 44px;
   }
 }

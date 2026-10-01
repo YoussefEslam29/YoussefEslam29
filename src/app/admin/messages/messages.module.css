@@ -6,6 +6,7 @@
 .messagesLayout {
   display: flex;
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--clr-bg-primary);
 }
 
@@ -508,6 +509,7 @@
 
 .loginWrap {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -597,5 +599,18 @@
 
   .messageActions {
     flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Usable on a phone: one swipeable row, 44px targets */
+  .sidebar {
+    scrollbar-width: none;
+  }
+  .sidebarLink,
+  .logoutBtn,
+  .refreshBtn,
+  .actionBtn {
+    min-height: 44px;
+    white-space: nowrap;
   }
 }
