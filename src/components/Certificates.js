@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { useReveal, useRevealGroup } from "@/lib/animations";
 import credentialsData from "@/data/credentials.json";
@@ -68,12 +69,9 @@ export default function Certificates() {
       <div className="container">
         {/* Section Header */}
         <div className="section-header" ref={titleRef}>
-          <p className={`mono ${styles.label}`}>&lt;certificates /&gt;</p>
+          <p className="kicker">Certificates</p>
           <h2 className="section-title">Achievements &amp; Certificates</h2>
-          <p
-            className="section-subtitle"
-            style={{ margin: "0 auto var(--space-xl)" }}
-          >
+          <p className="section-subtitle" style={{ margin: "0 auto" }}>
             Official recognitions from IEEE, ICTHub, and more
           </p>
           <div className="divider" />
@@ -131,13 +129,13 @@ export default function Certificates() {
         </div>
 
         {/* Category Filter Tabs */}
-        <div className={styles.tabs} role="tablist" aria-label="Filter certificates by category">
+        <div className="filter-bar" role="tablist" aria-label="Filter certificates by category">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               role="tab"
               aria-selected={activeCategory === cat}
-              className={`${styles.tab} ${activeCategory === cat ? styles.tabActive : ""}`}
+              className="filter-btn"
               onClick={() => setActiveCategory(cat)}
               id={`cert-tab-${cat.replace(/\s+/g, "-").toLowerCase()}`}
             >
@@ -236,18 +234,19 @@ export default function Certificates() {
         )}
       </div>
 
-      {/* Glow Orb Decorations */}
+      {/* Background haze */}
       <div
-        className="glow-orb glow-orb--accent"
-        style={{ width: 350, height: 350, top: "20%", right: "-5%" }}
+        className="glow-orb glow-orb--amber"
+        style={{ width: 460, height: 460, top: "16%", right: "-10%" }}
       />
       <div
-        className="glow-orb glow-orb--purple"
-        style={{ width: 280, height: 280, bottom: "10%", left: "-4%" }}
+        className="glow-orb glow-orb--crimson"
+        style={{ width: 420, height: 420, bottom: "6%", left: "-10%" }}
       />
 
-      {/* Lightbox Modal */}
-      {lightboxImage && (
+      {/* Lightbox Modal. Portalled to <body>: the section is its own stacking
+          context, which would otherwise trap the modal under the navbar. */}
+      {lightboxImage && createPortal(
         <div
           className={styles.lightbox}
           onClick={closeLightbox}
@@ -289,7 +288,8 @@ export default function Certificates() {
             />
             <p className={styles.lightboxCaption}>{lightboxTitle}</p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

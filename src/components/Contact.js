@@ -94,9 +94,9 @@ export default function Contact() {
     <section className={`section ${styles.contact}`} id="contact">
       <div className="container">
         <div className="section-header" ref={titleRef}>
-          <p className={`mono ${styles.label}`}>&lt;contact /&gt;</p>
+          <p className="kicker">Contact</p>
           <h2 className="section-title">Get In Touch</h2>
-          <p className="section-subtitle" style={{ margin: "0 auto var(--space-xl)" }}>
+          <p className="section-subtitle" style={{ margin: "0 auto" }}>
             Have a project in mind or just want to say hello? I&apos;d love to
             hear from you.
           </p>
@@ -141,7 +141,6 @@ export default function Contact() {
                 value={formData.businessSector}
                 onChange={handleChange}
                 required
-                style={{ background: "var(--clr-bg-card)", color: "var(--clr-text-primary)", cursor: "pointer" }}
               >
                 <option value="Retail">Retail</option>
                 <option value="Business / Corporate">Business / Corporate</option>
@@ -207,7 +206,7 @@ export default function Contact() {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               </div>
               <div>
-                <h4 className={styles.infoTitle}>Email</h4>
+                <h3 className={styles.infoTitle}>Email</h3>
                 <a href="mailto:yousef.islam.hussein@gmail.com" className={styles.infoValue}>
                   yousef.islam.hussein@gmail.com
                 </a>
@@ -220,7 +219,7 @@ export default function Contact() {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
               <div>
-                <h4 className={styles.infoTitle}>Egypt</h4>
+                <h3 className={styles.infoTitle}>Egypt</h3>
                 <a href="tel:+201023860655" className={styles.infoValue}>
                   +20 102 386 0655
                 </a>
@@ -233,7 +232,7 @@ export default function Contact() {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
               <div>
-                <h4 className={styles.infoTitle}>Saudi Arabia</h4>
+                <h3 className={styles.infoTitle}>Saudi Arabia</h3>
                 <a href="tel:+966561331159" className={styles.infoValue}>
                   +966 56 133 1159
                 </a>
@@ -246,7 +245,7 @@ export default function Contact() {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
               <div>
-                <h4 className={styles.infoTitle}>Based In</h4>
+                <h3 className={styles.infoTitle}>Based In</h3>
                 <p className={styles.infoValue}>Egypt &amp; Saudi Arabia</p>
               </div>
             </div>
@@ -257,7 +256,7 @@ export default function Contact() {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               </div>
               <div>
-                <h4 className={styles.infoTitle}>Resume</h4>
+                <h3 className={styles.infoTitle}>Resume</h3>
                 <a href="/resume/youssef_eslam_cv.pdf" download className={styles.infoValue} id="download-cv-contact">
                   Download My CV
                 </a>
@@ -284,7 +283,7 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="glow-orb glow-orb--purple" style={{ width: 400, height: 400, bottom: "0%", right: "-5%" }} />
+      <div className="glow-orb glow-orb--crimson" style={{ width: 520, height: 520, bottom: "4%", right: "-10%" }} />
     </section>
   );
 }

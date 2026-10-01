@@ -12,7 +12,7 @@ export default function Error({ error, reset }) {
   return (
     <main className={styles.page}>
       <div className="container">
-        <p className={`mono ${styles.code}`}>ERROR</p>
+        <p className={styles.code}>ERROR</p>
         <h1 className={styles.title}>Something went wrong</h1>
         <p className={styles.text}>
           This part of the site failed to load. Trying again usually fixes it.

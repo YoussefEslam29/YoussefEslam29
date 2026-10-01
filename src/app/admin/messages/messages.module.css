@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════
    Admin Messages Inbox — /admin/messages
-   Matches the existing admin panel dark purple aesthetic
+   Uses the site-wide Neo-Gotham Deco tokens from globals.css
    ═══════════════════════════════════════════════════════════════════════ */
 
 .messagesLayout {
@@ -151,7 +151,7 @@
   height: 24px;
   padding: 0 8px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  background: var(--grad-accent);
   color: white;
   font-size: 0.75rem;
   font-weight: 700;
@@ -240,12 +240,12 @@
 }
 
 .messageCard:hover {
-  border-color: rgba(124, 58, 237, 0.3);
-  box-shadow: 0 0 20px rgba(124, 58, 237, 0.05);
+  border-color: rgba(255, 74, 69, 0.35);
+  box-shadow: 0 0 20px rgba(255, 74, 69, 0.08);
 }
 
 .messageUnread {
-  border-left: 4px solid #7c3aed;
+  border-left: 4px solid var(--clr-crimson-600);
 }
 
 .messageRead {
@@ -411,8 +411,8 @@
 }
 
 .replyBtn:hover {
-  border-color: #7c3aed;
-  color: #7c3aed;
+  border-color: var(--clr-neon);
+  color: var(--clr-neon);
 }
 
 .markReadBtn {

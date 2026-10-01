@@ -1,213 +1,332 @@
+/* The crimson sky is the section's own background; the skyline sits on it
+   (z 0), a shade keeps the text side legible (z 1), content floats above
+   (z 2), and a film grain prints over everything (z 3). */
+
 .hero {
   position: relative;
+  isolation: isolate;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: var(--clr-bg-primary);
+  background: var(--grad-sky);
 }
 
-/* Background Effects */
-.bgGlow1 {
-  position: absolute;
-  top: -30%;
-  right: -10%;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(108, 43, 217, 0.2) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(60px);
-  pointer-events: none;
-  animation: float 8s ease-in-out infinite;
-}
-
-.bgGlow2 {
-  position: absolute;
-  bottom: -20%;
-  left: -10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  animation: float 10s ease-in-out infinite reverse;
-}
-
-.gridOverlay {
+.hero::before {
+  content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(168, 85, 247, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168, 85, 247, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
-}
-
-/* Canvas */
-.canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
   z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(10, 2, 3, 0.45) 0%, rgba(10, 2, 3, 0.2) 36%, transparent 60%),
+    radial-gradient(ellipse 120% 95% at 68% 42%, transparent 55%, rgba(8, 2, 3, 0.45) 100%);
 }
 
-/* Content */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-size: 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+}
+
+/* ---------- Content ---------- */
 .content {
   position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
   min-height: 100vh;
-  padding-top: 5rem;
-  padding-bottom: 3rem;
+  min-height: 100svh;
+  padding-top: 6rem;
+  padding-bottom: 5rem;
 }
 
 .textBlock {
-  max-width: 640px;
-  animation: fade-in-up 1s var(--ease-out-expo) 0.3s both;
+  max-width: 44rem;
+  animation: rise 1s var(--ease-out-expo) 0.2s both;
 }
 
+/* ---------- Name: a two-line poster lockup ---------- */
 .name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.6rem;
+  text-transform: uppercase;
+}
+
+/* A red neon sign: white-hot tubes in a red bloom, stuttering on at load */
+.nameFirst {
+  font-family: var(--font-inline);
   font-size: var(--fs-hero);
-  font-weight: var(--fw-black);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--clr-text-primary);
-  margin-bottom: var(--space-lg);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: 0.01em;
+  color: var(--clr-neon-core);
+  text-shadow:
+    0 0 2px rgba(255, 236, 228, 0.95),
+    0 0 10px rgba(255, 74, 69, 0.95),
+    0 0 28px rgba(255, 59, 59, 0.75),
+    0 0 64px rgba(210, 24, 24, 0.6),
+    0 0 110px rgba(180, 20, 20, 0.35);
+  animation: sign-on 1.8s linear 0.35s both;
 }
 
+/* The second tube burns amber, like the windows */
 .nameLast {
-  background: var(--grad-accent);
-  background-size: 200% 200%;
-  animation: gradient-shift 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-top: 0.55rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 3.7vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.21em;
+  color: #FFE7B0;
+  text-shadow:
+    0 0 2px rgba(255, 240, 210, 0.9),
+    0 0 10px rgba(242, 181, 68, 0.9),
+    0 0 26px rgba(242, 150, 40, 0.55),
+    0 0 50px rgba(220, 120, 30, 0.3);
+  animation: sign-on-amber 1.6s linear 0.9s both;
 }
 
-.typedWrap {
-  margin-bottom: var(--space-lg);
-  min-height: 2rem;
+@keyframes sign-on {
+  0%        { opacity: 0.12; }
+  8%        { opacity: 1; }
+  12%       { opacity: 0.2; }
+  22%       { opacity: 1; }
+  26%       { opacity: 0.35; }
+  40%, 100% { opacity: 1; }
 }
 
-.typedText {
-  font-size: var(--fs-body);
-  color: var(--clr-purple-300);
+@keyframes sign-on-amber {
+  0%        { opacity: 0.15; }
+  14%       { opacity: 1; }
+  19%       { opacity: 0.3; }
+  34%, 100% { opacity: 1; }
+}
+
+/* ---------- Typed role, on a dark brass-trimmed plaque ---------- */
+.plaque {
+  display: inline-flex;
+  align-items: center;
+  min-width: 34ch;
+  min-height: 2.6rem;
+  padding: 0.55rem 0.95rem;
+  margin-bottom: 1.5rem;
+  background: rgba(13, 7, 8, 0.74);
+  border: 1px solid var(--clr-brass-line);
+  box-shadow: inset 0 0 0 3px rgba(13, 7, 8, 0.74), inset 0 0 0 4px var(--clr-brass-faint);
+}
+
+.plaqueText {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-amber);
+  text-shadow: 0 0 8px rgba(242, 181, 68, 0.65);
 }
 
 .cursor {
-  animation: typing-cursor 0.8s infinite;
-  color: var(--clr-accent);
-  font-weight: var(--fw-light);
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 0.2em;
+  background: var(--clr-amber);
+  box-shadow: 0 0 8px rgba(242, 181, 68, 0.8);
+  animation: cursor-blink 1s steps(1) infinite;
 }
 
 .tagline {
-  font-size: var(--fs-body);
-  color: var(--clr-text-secondary);
+  max-width: 31rem;
+  margin-bottom: 2.25rem;
+  font-size: 1.075rem;
   line-height: 1.7;
-  margin-bottom: var(--space-xl);
-  max-width: 520px;
+  color: #EBD7C4;
 }
 
 .actions {
   display: flex;
-  gap: var(--space-md);
   flex-wrap: wrap;
-  margin-bottom: var(--space-xl);
+  gap: 0.85rem;
+  margin-bottom: 2rem;
 }
 
-/* Social Links */
+/* ---------- Social Links ---------- */
 .socials {
   display: flex;
-  gap: var(--space-md);
+  gap: 0.6rem;
 }
 
 .socialLink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  background: var(--clr-bg-card);
-  border: 1px solid var(--clr-border);
-  color: var(--clr-text-secondary);
-  transition: all var(--transition-fast);
+  width: 42px;
+  height: 42px;
+  background: rgba(13, 7, 8, 0.35);
+  border: 1px solid rgba(244, 231, 211, 0.3);
+  color: var(--clr-cream);
+  transition: color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast);
 }
 
 .socialLink:hover {
-  color: var(--clr-accent);
-  border-color: var(--clr-accent);
-  background: var(--clr-accent-soft);
+  color: var(--clr-amber);
+  border-color: var(--clr-amber);
+  background: rgba(13, 7, 8, 0.6);
   transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
 }
 
-/* Scroll Indicator */
+/* ---------- Scroll Indicator ---------- */
 .scrollDown {
   position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 1.5rem;
+  /* Centred without a transform, so the entrance animation can own it */
+  left: 0;
+  right: 0;
+  width: max-content;
+  margin-inline: auto;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 0.6rem;
+  padding: 0.5rem;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 2;
-  animation: fade-in-up 1s var(--ease-out-expo) 1.5s both;
-}
-
-.scrollMouse {
-  width: 24px;
-  height: 38px;
-  border: 2px solid var(--clr-text-muted);
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  padding-top: 6px;
-}
-
-.scrollWheel {
-  width: 3px;
-  height: 8px;
-  background: var(--clr-accent);
-  border-radius: 2px;
-  animation: bounce-subtle 1.5s infinite;
+  animation: rise 1s var(--ease-out-expo) 1.6s both;
 }
 
 .scrollText {
-  font-size: var(--fs-xs);
-  color: var(--clr-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.34em;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  color: var(--clr-cream);
 }
 
-/* Responsive */
+.scrollTrack {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, rgba(244, 231, 211, 0.6), rgba(244, 231, 211, 0.1));
+}
+
+.scrollDiamond {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  background: var(--clr-amber);
+  box-shadow: 0 0 8px rgba(242, 181, 68, 0.8);
+  transform: translate(-50%, 0) rotate(45deg);
+  animation: descend 2.2s var(--ease-out-expo) infinite;
+}
+
+@keyframes descend {
+  0%   { top: 0; opacity: 0; }
+  15%  { opacity: 1; }
+  80%  { top: 37px; opacity: 1; }
+  100% { top: 37px; opacity: 0; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.scrollText {
+  transition: color var(--transition-fast);
+}
+
+.scrollDown:hover .scrollText {
+  color: var(--clr-amber);
+}
+
+@keyframes cursor-blink {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  .content {
-    text-align: center;
+  .hero {
+    align-items: flex-start;
   }
+
+  .hero::before {
+    background:
+      linear-gradient(180deg, rgba(10, 2, 3, 0.4) 0%, rgba(10, 2, 3, 0.18) 45%, transparent 65%),
+      radial-gradient(ellipse 140% 90% at 50% 40%, transparent 55%, rgba(8, 2, 3, 0.4) 100%);
+  }
+
+  .content {
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    padding-top: 6.5rem;
+    /* Leave the lower band to the skyline (its height is set in
+       Skyline.module.css); the text may run into its empty top 36px of sky */
+    padding-bottom: calc(clamp(280px, 50vh, 460px) - 36px);
+  }
+
   .textBlock {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
+  .name {
+    align-items: center;
+  }
+
+  .nameLast {
+    letter-spacing: 0.16em;
+  }
+
+  .plaque {
+    min-width: 0;
+    width: min(100%, 34ch);
+    justify-content: center;
+  }
+
+  .plaqueText {
+    font-size: 0.74rem;
+  }
+
   .tagline {
     text-align: center;
   }
+
   .actions {
     justify-content: center;
   }
+
   .socials {
     justify-content: center;
+  }
+
+  .scrollDown {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 320px;
   }
 }

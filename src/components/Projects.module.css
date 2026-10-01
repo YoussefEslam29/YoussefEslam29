@@ -1,167 +1,163 @@
 .projects {
-  background: var(--clr-bg-secondary);
+  background: var(--clr-ink-900);
   overflow: hidden;
   position: relative;
 }
 
-.label {
-  font-size: var(--fs-small);
-  color: var(--clr-accent);
-  margin-bottom: var(--space-sm);
-}
-
-/* Filters */
-.filters {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-2xl);
-  flex-wrap: wrap;
-}
-
-.filterBtn {
-  padding: 0.5rem 1.2rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--clr-border);
-  background: transparent;
-  color: var(--clr-text-secondary);
-  font-family: var(--font-primary);
-  font-size: var(--fs-small);
-  font-weight: var(--fw-medium);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.filterBtn:hover {
-  background: var(--clr-accent-soft);
-  border-color: var(--clr-border-hover);
-  color: var(--clr-text-primary);
-}
-
-.filterActive {
-  background: var(--clr-accent-soft);
-  border-color: var(--clr-accent);
-  color: var(--clr-accent);
-}
-
-/* Grid */
+/* ---------- Grid ---------- */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: var(--space-lg);
+  gap: 1.5rem;
 }
 
-/* Card */
+/* ---------- Poster Card ---------- */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius-lg);
-  background: var(--clr-bg-card);
-  border: 1px solid var(--clr-border);
-  overflow: hidden;
-  transition: all var(--transition-base);
+  padding-top: 18px; /* room for the lacquer band */
+  background: var(--grad-card), var(--clr-ink-800);
+  border: 1px solid var(--clr-brass-faint);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
 }
 
+/* A lit neon tube along the top, with streamline rules tapering beneath it */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background:
+    linear-gradient(var(--clr-neon) 0 0) 0 1px / 100% 3px no-repeat,
+    linear-gradient(var(--clr-neon-pink) 0 0) 0 8px / 70% 1px no-repeat,
+    linear-gradient(rgba(255, 74, 69, 0.55) 0 0) 0 12px / 40% 1px no-repeat;
+  filter: drop-shadow(0 0 3px var(--clr-neon)) drop-shadow(0 0 9px var(--clr-neon-glow));
+  opacity: 0.8;
+  transition: opacity var(--transition-base);
+}
+
+/* Full power on hover */
 .card:hover {
-  border-color: var(--clr-border-hover);
+  border-color: rgba(255, 74, 69, 0.55);
   box-shadow: var(--shadow-glow);
   transform: translateY(-6px);
 }
 
-/* Card Header */
+.card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Header ---------- */
 .cardHeader {
-  position: relative;
-  padding: var(--space-lg);
-}
-
-.cardHeaderBg {
-  position: absolute;
-  inset: 0;
-  background: var(--grad-glow);
-  opacity: 0.5;
-}
-
-.cardHeaderContent {
-  position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  gap: 1rem;
+  min-height: 52px;
+  padding: 0.75rem 1.5rem 0;
 }
 
-.folderIcon {
-  color: var(--clr-accent);
+.category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--clr-amber);
+}
+
+.category::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: currentColor;
+  transform: rotate(45deg);
 }
 
 .cardLinks {
   display: flex;
-  gap: var(--space-sm);
+  gap: 0.35rem;
 }
 
 .cardLinkIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-full);
+  width: 36px;
+  height: 36px;
+  border: 1px solid transparent;
   color: var(--clr-text-secondary);
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .cardLinkIcon:hover {
-  color: var(--clr-accent);
-  background: var(--clr-accent-soft);
+  color: var(--clr-amber);
+  border-color: var(--clr-brass-line);
+  background: var(--clr-amber-soft);
 }
 
-/* Card Body */
+/* ---------- Body ---------- */
 .cardBody {
-  padding: 0 var(--space-lg);
   flex: 1;
+  padding: 0.6rem 1.5rem 0;
 }
 
 .cardTitle {
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-semibold);
-  color: var(--clr-text-primary);
-  margin-bottom: var(--space-sm);
+  margin-bottom: 0.7rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--clr-cream);
   transition: color var(--transition-fast);
 }
 
 .card:hover .cardTitle {
-  color: var(--clr-accent);
+  color: var(--clr-amber);
 }
 
 .cardDesc {
   font-size: var(--fs-small);
-  color: var(--clr-text-secondary);
   line-height: 1.7;
+  color: var(--clr-text-secondary);
 }
 
-/* Card Footer */
+/* ---------- Footer ---------- */
 .cardFooter {
-  padding: var(--space-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-sm);
   flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.4rem 1.5rem 0;
+  padding: 1rem 0 1.4rem;
+  border-top: 1px solid var(--clr-brass-faint);
 }
 
 .techTags {
   display: flex;
-  gap: var(--space-xs);
   flex-wrap: wrap;
+  gap: 0.35rem;
 }
 
 .ghBadge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: var(--fs-xs);
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--clr-text-muted);
 }
 
-/* Responsive */
+/* ---------- Responsive ---------- */
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;

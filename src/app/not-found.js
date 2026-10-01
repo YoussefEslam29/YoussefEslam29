@@ -10,7 +10,7 @@ export default function NotFound() {
   return (
     <main className={styles.page}>
       <div className="container">
-        <p className={`mono ${styles.code}`}>404</p>
+        <p className={styles.code}>404</p>
         <h1 className={styles.title}>Page not found</h1>
         <p className={styles.text}>
           That address does not exist on this site. It may have been moved, or

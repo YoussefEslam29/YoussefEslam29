@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Skyline from "@/components/Skyline";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
@@ -12,7 +13,7 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <Hero />
+        <Hero scene={<Skyline />} />
         <About />
         <Skills />
         <Projects />

@@ -1,30 +1,46 @@
+/* The building's base: a fluted plinth band, then the ground floor. */
 .footer {
-  padding: var(--space-xl) 0;
-  border-top: 1px solid var(--clr-border);
-  background: var(--clr-bg-primary);
+  position: relative;
+  padding: calc(var(--space-xl) + 16px) 0 var(--space-xl);
+  background: var(--clr-ink-950);
+  border-top: 1px solid var(--clr-brass-faint);
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: repeating-linear-gradient(90deg, var(--clr-crimson-900) 0 4px, var(--clr-ink-950) 4px 9px);
+  border-bottom: 1px solid var(--clr-brass-faint);
 }
 
 .inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-lg);
   flex-wrap: wrap;
+  gap: var(--space-lg);
 }
 
 .left {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: 0.35rem;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  font-weight: var(--fw-bold);
-  color: var(--clr-text-primary);
-  font-size: 1rem;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clr-cream);
 }
 
 .brandIcon {
@@ -33,11 +49,18 @@
   object-fit: contain;
 }
 
+.copy {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--clr-text-muted);
+}
+
 .legal {
   display: flex;
-  gap: var(--space-md);
   flex-wrap: wrap;
-  margin-top: var(--space-xs);
+  gap: var(--space-md);
+  margin-top: 0.15rem;
 }
 
 .legalLink {
@@ -46,54 +69,54 @@
 }
 
 .legalLink:hover {
-  color: var(--clr-accent);
+  color: var(--clr-amber);
   text-decoration: underline;
-}
-
-.copy {
-  font-size: var(--fs-xs);
-  color: var(--clr-text-muted);
+  text-underline-offset: 3px;
 }
 
 .socials {
   display: flex;
-  gap: var(--space-sm);
+  gap: 0.35rem;
 }
 
 .socialLink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
-  color: var(--clr-text-muted);
-  transition: all var(--transition-fast);
+  width: 40px;
+  height: 40px;
+  color: var(--clr-text-secondary);
+  transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
 .socialLink:hover {
-  color: var(--clr-accent);
+  color: var(--clr-amber);
   transform: translateY(-2px);
 }
 
+/* Back to top: a brass diamond */
 .topBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  background: var(--clr-bg-card);
-  border: 1px solid var(--clr-border);
-  color: var(--clr-text-secondary);
+  width: 42px;
+  height: 42px;
+  margin: 6px;
+  background: var(--clr-ink-900);
+  border: 1px solid var(--clr-brass-line);
+  color: var(--clr-cream);
+  transform: rotate(45deg);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.topBtn svg {
+  transform: rotate(-45deg);
 }
 
 .topBtn:hover {
-  border-color: var(--clr-accent);
-  color: var(--clr-accent);
-  transform: translateY(-3px);
+  color: var(--clr-neon);
+  border-color: var(--clr-neon);
   box-shadow: var(--shadow-glow);
 }
 
@@ -101,5 +124,11 @@
   .inner {
     flex-direction: column;
     text-align: center;
+  }
+  .left {
+    align-items: center;
+  }
+  .legal {
+    justify-content: center;
   }
 }

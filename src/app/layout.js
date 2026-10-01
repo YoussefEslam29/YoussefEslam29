@@ -1,4 +1,45 @@
+import {
+  Big_Shoulders,
+  Big_Shoulders_Inline,
+  Jost,
+  Space_Mono,
+} from "next/font/google";
 import "./globals.css";
+
+// Self-hosted by next/font: no request to Google, no layout shift.
+// Big Shoulders is drawn from 1930s Chicago signage; the opsz axis lets it
+// tighten up at display sizes. Jost follows Futura (1927). Space Mono covers
+// small labels and the "typed" details.
+// next/font has no metrics to size an automatic fallback for Big Shoulders,
+// so name condensed fallbacks explicitly instead. (Font loader options must
+// be literals, hence the repetition.)
+const display = Big_Shoulders({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-big-shoulders",
+  display: "swap",
+  fallback: ["Arial Narrow", "Impact", "sans-serif"],
+  adjustFontFallback: false,
+});
+const inline = Big_Shoulders_Inline({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-big-shoulders-inline",
+  display: "swap",
+  fallback: ["Arial Narrow", "Impact", "sans-serif"],
+  adjustFontFallback: false,
+});
+const body = Jost({
+  subsets: ["latin"],
+  variable: "--font-jost",
+  display: "swap",
+});
+const mono = Space_Mono({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-space-mono",
+  display: "swap",
+});
 
 // One place to change when a custom domain is connected. Set the same value
 // in Vercel > Settings > Environment Variables.
@@ -50,21 +91,19 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#050508",
+  // The top of the hero sky, so the browser chrome runs into it.
+  themeColor: "#2A0507",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${display.variable} ${inline.variable} ${body.variable} ${mono.variable}`}
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
         {/* Scroll reveals start hidden and are revealed by JS. With scripting
             off nothing would ever reveal them, so show them outright. */}
         <noscript>

@@ -10,7 +10,7 @@ export default function About() {
     <section className={`section ${styles.about}`} id="about">
       <div className="container">
         <div className="section-header" ref={titleRef}>
-          <p className={`mono ${styles.label}`}>&lt;about /&gt;</p>
+          <p className="kicker">About</p>
           <h2 className="section-title">Who I Am</h2>
           <div className="divider" />
         </div>
@@ -39,45 +39,41 @@ export default function About() {
             </p>
           </div>
 
-          {/* Decorative Column */}
+          {/* Personnel file: the quick facts, typed up noir-style */}
           <div className={styles.visual}>
-            <div className={styles.card}>
-              <div className={styles.cardGlow} />
-              <div className={styles.cardContent}>
-                <div className={styles.codeBlock}>
-                  <span className={styles.codeLine}>
-                    <span className={styles.codeKeyword}>const</span>{" "}
-                    <span className={styles.codeVar}>developer</span> ={" "}
-                    {"{"}
-                  </span>
-                  <span className={styles.codeLine}>
-                    {"  "}name: <span className={styles.codeString}>&quot;Youssef Eslam&quot;</span>,
-                  </span>
-                  <span className={styles.codeLine}>
-                    {"  "}role: <span className={styles.codeString}>&quot;Full-Stack Developer&quot;</span>,
-                  </span>
-                  <span className={styles.codeLine}>
-                    {"  "}passions: [
-                  </span>
-                  <span className={styles.codeLine}>
-                    {"    "}<span className={styles.codeString}>&quot;Web&quot;</span>,{" "}
-                    <span className={styles.codeString}>&quot;Cloud&quot;</span>,{" "}
-                    <span className={styles.codeString}>&quot;Robotics&quot;</span>
-                  </span>
-                  <span className={styles.codeLine}>{"  "}],</span>
-                  <span className={styles.codeLine}>
-                    {"  "}available: <span className={styles.codeBool}>true</span>
-                  </span>
-                  <span className={styles.codeLine}>{"}"}</span>
-                </div>
+            <div className={styles.file}>
+              <div className={styles.fileTab} aria-hidden="true">Nº 29</div>
+              <div className={styles.fileHead}>
+                <span>Personnel file</span>
+                <span>Egypt · KSA</span>
               </div>
+              <dl className={styles.facts}>
+                <div className={styles.fact}>
+                  <dt>Name</dt>
+                  <dd>Youssef Eslam</dd>
+                </div>
+                <div className={styles.fact}>
+                  <dt>Role</dt>
+                  <dd>Full-Stack Developer</dd>
+                </div>
+                <div className={styles.fact}>
+                  <dt>Focus</dt>
+                  <dd>Web · Cloud · Robotics</dd>
+                </div>
+                <div className={styles.fact}>
+                  <dt>Status</dt>
+                  <dd>
+                    <span className={styles.stamp}>Available</span>
+                  </dd>
+                </div>
+              </dl>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Background Orb */}
-      <div className="glow-orb glow-orb--purple" style={{ width: 400, height: 400, top: "20%", right: "-5%" }} />
+      {/* Background haze */}
+      <div className="glow-orb glow-orb--crimson" style={{ width: 560, height: 560, top: "18%", right: "-10%" }} />
     </section>
   );
 }

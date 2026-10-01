@@ -2,21 +2,29 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: var(--clr-bg-primary);
   text-align: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 30%, rgba(179, 25, 31, 0.22) 0%, transparent 100%),
+    var(--clr-bg-primary);
 }
 
+/* The status code as a neon sign, in the inline deco face */
 .code {
-  font-size: var(--fs-small);
-  letter-spacing: 0.2em;
-  color: var(--clr-accent);
-  margin-bottom: var(--space-md);
+  font-family: var(--font-inline);
+  font-size: clamp(6rem, 20vw, 12rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: 0.04em;
+  color: var(--clr-neon-core);
+  text-shadow: var(--glow-text);
+  margin-bottom: var(--space-lg);
 }
 
 .title {
   font-size: var(--fs-h1);
-  font-weight: var(--fw-black);
-  color: var(--clr-text-primary);
+  font-weight: 800;
+  line-height: 0.95;
+  color: var(--clr-cream);
   margin-bottom: var(--space-md);
 }
 

@@ -135,10 +135,10 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* CTA */}
+          {/* CTA: an outline on the crimson sky, lacquer once the bar turns solid */}
           <a
             href="#contact"
-            className={`btn btn-primary ${styles.cta} hide-tablet`}
+            className={`btn ${scrolled ? "btn-primary" : "btn-ghost"} ${styles.cta} hide-tablet`}
             onClick={(e) => {
               e.preventDefault();
               handleNav("contact");
@@ -152,6 +152,7 @@ export default function Navbar() {
             className={`${styles.burger} hide-desktop`}
             onClick={() => setMobileOpen((p) => !p)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
             id="mobile-menu-toggle"
           >
             <span className={`${styles.burgerLine} ${mobileOpen ? styles.open : ""}`} />
