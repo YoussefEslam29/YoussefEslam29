@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useReveal, useRevealGroup } from "@/lib/animations";
+import { useReveal, useRevealGroup, scrollBehavior } from "@/lib/animations";
 import projectsData from "@/data/projects.json";
 import styles from "./Projects.module.css";
 
@@ -118,7 +118,11 @@ export default function Projects() {
               type="button"
               className="filter-btn"
               aria-pressed={activeCategory === cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={(e) => {
+                setActiveCategory(cat);
+                // Keep the chosen chip fully on screen in the swipeable row
+                e.currentTarget.scrollIntoView({ inline: "nearest", block: "nearest", behavior: scrollBehavior() });
+              }}
             >
               {cat}
             </button>

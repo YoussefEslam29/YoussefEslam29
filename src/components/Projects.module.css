@@ -7,7 +7,7 @@
 /* ---------- Grid ---------- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 1.5rem;
 }
 
@@ -39,17 +39,6 @@
   transition: opacity var(--transition-base);
 }
 
-/* Full power on hover */
-.card:hover {
-  border-color: rgba(255, 74, 69, 0.55);
-  box-shadow: var(--shadow-glow);
-  transform: translateY(-6px);
-}
-
-.card:hover::before {
-  opacity: 1;
-}
-
 /* ---------- Header ---------- */
 .cardHeader {
   display: flex;
@@ -65,7 +54,7 @@
   align-items: center;
   gap: 0.55rem;
   font-family: var(--font-mono);
-  font-size: var(--fs-label);
+  font-size: 0.75rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--clr-amber);
@@ -81,24 +70,18 @@
 
 .cardLinks {
   display: flex;
-  gap: 0.35rem;
+  gap: 0.5rem;
 }
 
 .cardLinkIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: var(--tap);
+  height: var(--tap);
   border: 1px solid transparent;
   color: var(--clr-text-secondary);
   transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
-}
-
-.cardLinkIcon:hover {
-  color: var(--clr-amber);
-  border-color: var(--clr-brass-line);
-  background: var(--clr-amber-soft);
 }
 
 /* ---------- Body ---------- */
@@ -116,10 +99,6 @@
   letter-spacing: 0.02em;
   color: var(--clr-cream);
   transition: color var(--transition-fast);
-}
-
-.card:hover .cardTitle {
-  color: var(--clr-amber);
 }
 
 .cardDesc {
@@ -151,15 +130,59 @@
   align-items: center;
   gap: 0.35rem;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--clr-text-muted);
 }
 
+/* ---------- Hover (mouse only: on touch the lift sticks after a tap) ---------- */
+@media (hover: hover) and (pointer: fine) {
+  /* Full power on hover */
+  .card:hover {
+    border-color: rgba(255, 74, 69, 0.55);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-6px);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .cardLinkIcon:hover {
+    color: var(--clr-amber);
+    border-color: var(--clr-brass-line);
+    background: var(--clr-amber-soft);
+  }
+
+  .card:hover .cardTitle {
+    color: var(--clr-amber);
+  }
+}
+
+@media (hover: none) {
+  .card:active {
+    border-color: rgba(255, 74, 69, 0.45);
+  }
+}
+
 /* ---------- Responsive ---------- */
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .grid {
-    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .cardHeader {
+    min-height: 48px;
+    padding: 0.6rem 1.1rem 0;
+  }
+  .cardBody {
+    padding: 0.5rem 1.1rem 0;
+  }
+  .cardTitle {
+    font-size: 1.6rem;
+  }
+  .cardFooter {
+    margin: 1.1rem 1.1rem 0;
+    padding: 0.9rem 0 1.1rem;
   }
 }
