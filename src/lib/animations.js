@@ -148,8 +148,7 @@ export function useActiveSection(sectionIds) {
 
     const measure = () => {
       frame = 0;
-      // While an overlay locks the page, scroll positions are frozen at 0.
-      if (pinned || document.body.dataset.overlay) return;
+      if (pinned) return;
       const doc = document.documentElement;
       let current = "";
       if (window.scrollY > 0 && window.scrollY + window.innerHeight >= doc.scrollHeight - 2) {

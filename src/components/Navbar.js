@@ -55,16 +55,12 @@ export default function Navbar() {
   const pendingTarget = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Locking the scroll jumps scrollY to 0; don't flash the bar transparent
-      if (document.body.dataset.overlay) return;
-      setScrolled(window.scrollY > 40);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Order matters: push the Back entry before the scroll lock moves the page
+  // Phone Back closes the drawer; the page behind it stays put
   const releaseHistory = useBackToClose(mobileOpen, () => setMobileOpen(false));
   useScrollLock(mobileOpen);
   const closeMenu = useCallback(() => {

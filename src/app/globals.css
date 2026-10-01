@@ -186,6 +186,9 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* The scroll lock hides the root's overflow; keep the scrollbar's space so
+     the page doesn't shift sideways when a menu or lightbox opens */
+  scrollbar-gutter: stable;
 }
 
 body {

@@ -20,8 +20,6 @@ export default function Hero({ scene }) {
     let last = -1;
     const update = () => {
       frame = 0;
-      // An open drawer or lightbox pins the page at scrollY 0; keep the city still
-      if (document.body.dataset.overlay) return;
       const progress = Math.min(Math.max(window.scrollY / (hero.offsetHeight || 1), 0), 1);
       if (progress === last) return;
       last = progress;

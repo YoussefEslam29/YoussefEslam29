@@ -1,68 +1,85 @@
 "use client";
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import { useReveal, useRevealGroup } from "@/lib/animations";
+import { motion, MotionConfig } from "framer-motion";
+import { useReveal, useRevealGroup, scrollBehavior } from "@/lib/animations";
+import { useBackToClose, useScrollLock, useFocusTrap } from "@/lib/mobile";
 import credentialsData from "@/data/credentials.json";
 import styles from "./Certificates.module.css";
 
 const CATEGORIES = ["All", "Training & Courses", "IEEE & Events"];
 
+const certificates = credentialsData.certificates;
+const education = credentialsData.education || [];
+
+const stop = (e) => e.stopPropagation();
+
 export default function Certificates() {
   const titleRef = useReveal();
   const gridRef = useRevealGroup({ threshold: 0.05 });
   const [activeCategory, setActiveCategory] = useState("All");
-  const [lightboxImage, setLightboxImage] = useState(null);
-  const [lightboxTitle, setLightboxTitle] = useState("");
-  const closeButtonRef = useRef(null);
-  const lastFocusedRef = useRef(null);
+  // The lightbox shows filtered[activeIndex]; -1 means closed
+  const [activeIndex, setActiveIndex] = useState(-1);
+  // +1 or -1: which side the next certificate slides in from
+  const [direction, setDirection] = useState(0);
+  const dialogRef = useRef(null);
 
-  const certificates = credentialsData.certificates;
-  const education = credentialsData.education || [];
+  const filtered = useMemo(
+    () =>
+      activeCategory === "All"
+        ? certificates
+        : certificates.filter((c) => c.category === activeCategory),
+    [activeCategory]
+  );
 
-  const filtered =
-    activeCategory === "All"
-      ? certificates
-      : certificates.filter((c) => c.category === activeCategory);
+  const open = activeIndex >= 0;
+  const current = open ? filtered[activeIndex] : null;
 
-  const openLightbox = useCallback((image, title) => {
-    // Remember what had focus so it can be restored on close.
-    lastFocusedRef.current = document.activeElement;
-    setLightboxImage(image);
-    setLightboxTitle(title);
-    document.body.style.overflow = "hidden";
+  const openLightbox = useCallback((index) => {
+    setDirection(0);
+    setActiveIndex(index);
   }, []);
 
+  // Phone Back closes the lightbox; the page behind it stays put
+  const release = useBackToClose(open, () => setActiveIndex(-1));
+  useScrollLock(open);
   const closeLightbox = useCallback(() => {
-    setLightboxImage(null);
-    setLightboxTitle("");
-    document.body.style.overflow = "";
-    const last = lastFocusedRef.current;
-    if (last && typeof last.focus === "function") last.focus();
-  }, []);
+    release();
+    setActiveIndex(-1);
+  }, [release]);
+  // Esc closes it, Tab stays inside it, and focus returns to the card after
+  useFocusTrap(dialogRef, open, closeLightbox);
 
-  // Escape closes it; Tab stays inside it. Without the trap, keyboard focus
-  // walks off into the page behind the modal.
+  const step = useCallback(
+    (dir) => {
+      setDirection(dir);
+      setActiveIndex((i) => (i + dir + filtered.length) % filtered.length);
+    },
+    [filtered.length]
+  );
+  const showNext = useCallback(() => step(1), [step]);
+  const showPrev = useCallback(() => step(-1), [step]);
+
+  // Arrow keys step through the certificates
   useEffect(() => {
-    if (!lightboxImage) return;
-
-    closeButtonRef.current?.focus();
-
-    const handleKey = (e) => {
-      if (e.key === "Escape") {
-        closeLightbox();
-        return;
-      }
-      if (e.key === "Tab") {
-        // The close button is the only focusable control in the dialog.
-        e.preventDefault();
-        closeButtonRef.current?.focus();
-      }
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === "ArrowRight") showNext();
+      else if (e.key === "ArrowLeft") showPrev();
     };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, showNext, showPrev]);
 
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [lightboxImage, closeLightbox]);
+  // Fetch the neighbours ahead of time, so a swipe lands on a loaded image
+  useEffect(() => {
+    if (!open || filtered.length < 2) return;
+    for (const d of [1, -1]) {
+      const img = new window.Image();
+      img.src = filtered[(activeIndex + d + filtered.length) % filtered.length].image;
+    }
+  }, [open, activeIndex, filtered]);
 
   return (
     <section className={`section ${styles.certificates}`} id="certificates">
@@ -119,6 +136,7 @@ export default function Certificates() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
@@ -136,7 +154,11 @@ export default function Certificates() {
               role="tab"
               aria-selected={activeCategory === cat}
               className="filter-btn"
-              onClick={() => setActiveCategory(cat)}
+              onClick={(e) => {
+                setActiveCategory(cat);
+                // Keep the chosen chip fully on screen in the swipeable row
+                e.currentTarget.scrollIntoView({ inline: "nearest", block: "nearest", behavior: scrollBehavior() });
+              }}
               id={`cert-tab-${cat.replace(/\s+/g, "-").toLowerCase()}`}
             >
               {cat}
@@ -150,27 +172,16 @@ export default function Certificates() {
           ref={gridRef}
           role="tabpanel"
         >
-          {filtered.map((cert) => (
+          {filtered.map((cert, index) => (
             <div key={cert.id} className={styles.card} id={`cert-${cert.id}`}>
-              {/* Image Preview */}
-              <div
-                className={styles.cardImage}
-                onClick={() => openLightbox(cert.image, cert.title)}
-                role="button"
-                tabIndex={0}
-                aria-label={`View ${cert.title} certificate`}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    openLightbox(cert.image, cert.title);
-                  }
-                }}
-              >
+              {/* Image Preview: a mouse shortcut. The View button below is
+                  the one accessible control (on phones it covers the card). */}
+              <div className={styles.cardImage} onClick={() => openLightbox(index)}>
                 <Image
                   src={cert.image}
                   alt={`${cert.title}, issued by ${cert.issuer}`}
                   fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 767px) 112px, (max-width: 1024px) 50vw, 33vw"
                   className={styles.cardImageInner}
                 />
                 <div className={styles.cardImageOverlay}>
@@ -183,6 +194,7 @@ export default function Certificates() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    aria-hidden="true"
                   >
                     <circle cx="11" cy="11" r="8" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -203,8 +215,9 @@ export default function Certificates() {
                 <p className={styles.cardIssuer}>{cert.issuer}</p>
                 <p className={styles.cardDesc}>{cert.description}</p>
                 <button
+                  type="button"
                   className={styles.viewBtn}
-                  onClick={() => openLightbox(cert.image, cert.title)}
+                  onClick={() => openLightbox(index)}
                   aria-label={`View full certificate: ${cert.title}`}
                 >
                   <svg
@@ -216,6 +229,7 @@ export default function Certificates() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    aria-hidden="true"
                   >
                     <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
                     <circle cx="12" cy="12" r="3" />
@@ -246,49 +260,111 @@ export default function Certificates() {
 
       {/* Lightbox Modal. Portalled to <body>: the section is its own stacking
           context, which would otherwise trap the modal under the navbar. */}
-      {lightboxImage && createPortal(
-        <div
-          className={styles.lightbox}
-          onClick={closeLightbox}
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Certificate: ${lightboxTitle}`}
-        >
-          <button
-            ref={closeButtonRef}
-            className={styles.lightboxClose}
-            onClick={closeLightbox}
-            aria-label="Close lightbox"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
+      {current && createPortal(
+        <MotionConfig reducedMotion="user">
           <div
-            className={styles.lightboxContent}
-            onClick={(e) => e.stopPropagation()}
+            className={styles.lightbox}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="lightbox-title"
+            ref={dialogRef}
+            onClick={closeLightbox}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element --
-                the full-size view needs the image's natural aspect ratio and
-                is only requested when a visitor opens it */}
-            <img
-              src={lightboxImage}
-              alt={lightboxTitle}
-              className={styles.lightboxImg}
-            />
-            <p className={styles.lightboxCaption}>{lightboxTitle}</p>
+            <div className={styles.lightboxBar} onClick={stop}>
+              <span className={styles.counter} aria-live="polite">
+                {activeIndex + 1} / {filtered.length}
+              </span>
+              <button
+                type="button"
+                className={styles.lightboxClose}
+                onClick={closeLightbox}
+                aria-label="Close certificate"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            <figure className={styles.lightboxContent} onClick={stop}>
+              {/* Only the image takes the swipe, so the caption can still
+                  scroll: left/right steps through, down closes. */}
+              <motion.img
+                key={current.id}
+                src={current.image}
+                alt={`${current.title}, issued by ${current.issuer}`}
+                className={styles.lightboxImg}
+                draggable={false}
+                drag
+                dragDirectionLock
+                dragSnapToOrigin
+                dragElastic={0.5}
+                onDragEnd={(_, { offset, velocity }) => {
+                  if (Math.abs(offset.x) > Math.abs(offset.y)) {
+                    if (offset.x < -60 || velocity.x < -500) showNext();
+                    else if (offset.x > 60 || velocity.x > 500) showPrev();
+                  } else if (offset.y > 100 || velocity.y > 600) {
+                    closeLightbox();
+                  }
+                }}
+                initial={{ opacity: 0, x: direction * 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              />
+              <figcaption className={styles.lightboxCaption}>
+                <h3 id="lightbox-title" className={styles.lightboxTitle}>
+                  {current.title}
+                </h3>
+                <p className={styles.lightboxMeta}>
+                  {current.issuer}
+                  {current.date ? ` · ${current.date}` : ""}
+                </p>
+                <p className={styles.lightboxDesc}>{current.description}</p>
+                <a
+                  href={current.image}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.fullSize}
+                >
+                  Open full size
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+              </figcaption>
+            </figure>
+
+            <div className={styles.lightboxNav} onClick={stop}>
+              <button
+                type="button"
+                className={styles.navBtn}
+                onClick={showPrev}
+                aria-label="Previous certificate"
+                disabled={filtered.length < 2}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+                Prev
+              </button>
+              <button
+                type="button"
+                className={styles.navBtn}
+                onClick={showNext}
+                aria-label="Next certificate"
+                disabled={filtered.length < 2}
+              >
+                Next
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>,
+        </MotionConfig>,
         document.body
       )}
     </section>

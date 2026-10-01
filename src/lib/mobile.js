@@ -16,29 +16,26 @@ export function useMediaQuery(query) {
 }
 
 /**
- * Locks page scroll without the iOS jump-to-top: the body is pinned in place
- * and the position restored on release. Sets body[data-overlay] while locked,
- * which the bottom tab bar reads to slide away. Counts nested locks.
+ * Locks page scroll by hiding the root's overflow (honoured by iOS Safari 16+).
+ * The page keeps its height and scroll position, so nothing jumps, and the
+ * browser can restore the position when Back closes an overlay. (Pinning the
+ * body with position: fixed broke that restore, and Chrome then scrolled to
+ * the URL's #fragment instead.) Sets body[data-overlay] while locked, which
+ * the bottom tab bar reads to slide away. Counts nested locks.
  */
 let locks = 0;
-let savedY = 0;
 export function useScrollLock(active) {
   useEffect(() => {
     if (!active) return;
     const { body, documentElement: html } = document;
     if (locks++ === 0) {
-      savedY = window.scrollY;
-      Object.assign(body.style, { position: "fixed", top: `-${savedY}px`, left: "0", right: "0" });
+      html.style.overflow = "hidden";
       body.dataset.overlay = "open";
     }
     return () => {
       if (--locks > 0) return;
-      Object.assign(body.style, { position: "", top: "", left: "", right: "" });
+      html.style.overflow = "";
       delete body.dataset.overlay;
-      const previous = html.style.scrollBehavior;
-      html.style.scrollBehavior = "auto"; // jump back instantly, not with the smooth scroll
-      window.scrollTo(0, savedY);
-      html.style.scrollBehavior = previous;
     };
   }, [active]);
 }
@@ -49,37 +46,44 @@ export function useScrollLock(active) {
  *   release()     -> removes the extra history entry (X, Esc, swipe, backdrop)
  *   release(true) -> keeps it (closing because a section link was chosen;
  *                    scrollToSection then rewrites that entry to #section)
- * Use it BEFORE useScrollLock in a component, so the entry is pushed while the
- * page still has its real scroll position.
+ * Use it BEFORE useScrollLock in a component.
  */
 export function useBackToClose(open, onClose) {
   const onCloseRef = useRef(onClose);
   const pushedRef = useRef(false);
+  const restoreHashRef = useRef(() => {});
   useEffect(() => { onCloseRef.current = onClose; });
 
   useEffect(() => {
     if (!open) return;
-    const { history } = window;
-    const restoration = history.scrollRestoration;
-    history.scrollRestoration = "manual"; // the scroll lock restores the position itself
+    const { history, location } = window;
+    // Pressing Back onto an entry whose URL has a #fragment makes Chrome
+    // scroll to that section, losing the visitor's place. Keep the fragment
+    // out of the URL while the overlay is open and put it back on close.
+    const hash = location.hash;
+    if (hash) history.replaceState(history.state, "", location.pathname + location.search);
+    restoreHashRef.current = () => {
+      if (hash && !window.location.hash) history.replaceState(history.state, "", hash);
+    };
     history.pushState({ overlay: true }, "");
     pushedRef.current = true;
     const onPop = () => {
       if (!pushedRef.current) return; // our own history.back() from release()
       pushedRef.current = false;
+      restoreHashRef.current();
       onCloseRef.current();
     };
     window.addEventListener("popstate", onPop);
-    return () => {
-      window.removeEventListener("popstate", onPop);
-      history.scrollRestoration = restoration;
-    };
+    return () => window.removeEventListener("popstate", onPop);
   }, [open]);
 
   return useCallback((keepEntry = false) => {
     if (!pushedRef.current) return;
     pushedRef.current = false;
-    if (!keepEntry) window.history.back();
+    if (keepEntry) return;
+    // history.back() lands asynchronously; restore the fragment once it has
+    window.addEventListener("popstate", () => restoreHashRef.current(), { once: true });
+    window.history.back();
   }, []);
 }
 
