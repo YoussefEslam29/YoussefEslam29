@@ -1,7 +1,7 @@
 /* The building's base: a fluted plinth band, then the ground floor. */
 .footer {
   position: relative;
-  padding: calc(var(--space-xl) + 16px) 0 var(--space-xl);
+  padding: calc(var(--space-xl) + 16px) 0 calc(var(--space-xl) + var(--safe-bottom));
   background: var(--clr-ink-950);
   border-top: 1px solid var(--clr-brass-faint);
 }
@@ -51,7 +51,7 @@
 
 .copy {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--clr-text-muted);
 }
@@ -64,14 +64,11 @@
 }
 
 .legalLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
   font-size: var(--fs-xs);
   color: var(--clr-text-secondary);
-}
-
-.legalLink:hover {
-  color: var(--clr-amber);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .socials {
@@ -83,15 +80,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: var(--tap);
+  height: var(--tap);
   color: var(--clr-text-secondary);
   transition: color var(--transition-fast), transform var(--transition-fast);
-}
-
-.socialLink:hover {
-  color: var(--clr-amber);
-  transform: translateY(-2px);
 }
 
 /* Back to top: a brass diamond */
@@ -99,8 +91,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: var(--tap);
+  height: var(--tap);
   margin: 6px;
   background: var(--clr-ink-900);
   border: 1px solid var(--clr-brass-line);
@@ -114,10 +106,35 @@
   transform: rotate(-45deg);
 }
 
-.topBtn:hover {
-  color: var(--clr-neon);
-  border-color: var(--clr-neon);
-  box-shadow: var(--shadow-glow);
+/* Hover for a real mouse only; on touch it sticks after a tap */
+@media (hover: hover) and (pointer: fine) {
+  .legalLink:hover {
+    color: var(--clr-amber);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .socialLink:hover {
+    color: var(--clr-amber);
+    transform: translateY(-2px);
+  }
+
+  .topBtn:hover {
+    color: var(--clr-neon);
+    border-color: var(--clr-neon);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@media (hover: none) {
+  .socialLink:active,
+  .legalLink:active {
+    color: var(--clr-amber);
+  }
+  .topBtn:active {
+    color: var(--clr-neon);
+    border-color: var(--clr-neon);
+  }
 }
 
 @media (max-width: 640px) {

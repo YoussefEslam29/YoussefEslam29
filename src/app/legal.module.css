@@ -1,5 +1,6 @@
 .page {
   min-height: 100vh;
+  min-height: 100svh;
   background:
     radial-gradient(ellipse 70% 40% at 50% 0%, rgba(179, 25, 31, 0.18) 0%, transparent 100%),
     var(--clr-bg-primary);
@@ -9,6 +10,7 @@
 .back {
   display: inline-flex;
   align-items: center;
+  min-height: var(--tap);
   gap: var(--space-sm);
   font-size: var(--fs-small);
   color: var(--clr-text-secondary);
@@ -18,8 +20,10 @@
   margin-bottom: var(--space-xl);
 }
 
-.back:hover {
-  color: var(--clr-amber);
+@media (hover: hover) and (pointer: fine) {
+  .back:hover {
+    color: var(--clr-amber);
+  }
 }
 
 .title {
@@ -70,7 +74,8 @@
 }
 
 .body ul {
-  margin: 0 0 var(--space-md) var(--space-lg);
+  margin: 0 0 var(--space-md);
+  margin-inline-start: var(--space-lg);
   color: var(--clr-text-secondary);
 }
 
