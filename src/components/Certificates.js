@@ -89,7 +89,7 @@ export default function Certificates() {
           <p className="kicker">Certificates</p>
           <h2 className="section-title">Achievements &amp; Certificates</h2>
           <p className="section-subtitle" style={{ margin: "0 auto" }}>
-            Official recognitions from IEEE, ICTHub, and more
+            Official recognition from IEEE, ICTHub, and more.
           </p>
           <div className="divider" />
         </div>

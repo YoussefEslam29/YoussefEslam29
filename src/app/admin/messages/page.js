@@ -286,7 +286,7 @@ export default function MessagesPage() {
             <div className={styles.emptyIcon}><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></div>
             <h3 className={styles.emptyTitle}>No messages yet</h3>
             <p className={styles.emptySubtitle}>
-              When visitors send you a message through the contact form, they will appear here.
+              When visitors send you a message through the contact form, it will appear here.
             </p>
           </div>
         )}
@@ -370,7 +370,7 @@ export default function MessagesPage() {
         <div className={styles.fcmSection}>
           <h4 className={styles.fcmTitle}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.41 5.956-2.738 7.326"/></svg> Push Notification Setup</h4>
           <p className={styles.fcmDescription}>
-            Get your device FCM token to receive push notifications on this device when someone
+            Get this device&apos;s FCM token to receive push notifications on it when someone
             contacts you. Open this page from your phone and tap the button below.
           </p>
           {!fcmToken ? (

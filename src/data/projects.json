@@ -33,7 +33,7 @@
   {
     "id": "sicxe-assembler",
     "title": "SIC/XE Assembler",
-    "description": "A complete 2-pass assembler built from scratch, demonstrating deep understanding of low-level microprocessor architecture and machine code generation.",
+    "description": "A complete two-pass assembler built from scratch, demonstrating a deep understanding of low-level microprocessor architecture and machine code generation.",
     "techStack": [
       "Python"
     ],
@@ -46,7 +46,7 @@
   {
     "id": "bean-classification",
     "title": "Bean Plant Classification",
-    "description": "A machine learning model utilizing LightGBM for accurate data classification of bean plant varieties, featuring data preprocessing and model evaluation pipelines.",
+    "description": "A machine learning model that uses LightGBM to classify bean plant varieties accurately, with data preprocessing and model evaluation pipelines.",
     "techStack": [
       "Python",
       "LightGBM",

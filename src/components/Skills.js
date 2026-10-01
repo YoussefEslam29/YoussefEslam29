@@ -33,7 +33,7 @@ export default function Skills() {
           <h2 className="section-title">What I Work With</h2>
           <p className="section-subtitle" style={{ margin: "0 auto" }}>
             The languages, frameworks, and hardware I work with, from
-            frontend frameworks to embedded systems.
+            frontend development to embedded systems.
           </p>
           <div className="divider" />
         </div>

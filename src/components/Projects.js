@@ -8,12 +8,23 @@ const CATEGORIES = ["All", "Web", "Robotics", "ML", "Systems"];
 
 // Only these repositories are pulled from GitHub. Syncing "most recently
 // updated" dragged coursework and the profile README onto the portfolio, so
-// the list is explicit. Add a repo name here to feature it.
+// the list is explicit. Add a repo name here to feature it. A `description`
+// here is shown instead of the one written on GitHub; leave it out to use
+// GitHub's as it is.
 const FEATURED_REPOS = {
-  "DEKKA-EVENTS": "Web",
-  "alexandria-barber-book": "Web",
-  Incarnatrun: "Web",
-  "S.N.S": "Web",
+  "DEKKA-EVENTS": {
+    category: "Web",
+    description: "DEKKA is a café that brings bands together and hosts karaoke nights and many other events.",
+  },
+  "alexandria-barber-book": { category: "Web" },
+  Incarnatrun: {
+    category: "Web",
+    description: "Incarnatrun is a website for creating a 3D model of yourself.",
+  },
+  "S.N.S": {
+    category: "Web",
+    description: "S.N.S (SWILLNSPIN) is a car wash located at Transport and Engineering, Smouha.",
+  },
 };
 
 // Repo descriptions are written on GitHub and can contain emoji, which do not
@@ -61,9 +72,9 @@ export default function Projects() {
           .map((r) => ({
             id: `gh-${r.name}`,
             title: titleFromRepo(r.name),
-            description: cleanText(r.description),
+            description: cleanText(FEATURED_REPOS[r.name].description || r.description),
             techStack: [r.language].filter(Boolean),
-            category: FEATURED_REPOS[r.name],
+            category: FEATURED_REPOS[r.name].category,
             github: r.html_url,
             live: r.homepage || null,
             featured: false,

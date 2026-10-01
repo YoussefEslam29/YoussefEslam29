@@ -39,7 +39,7 @@
     "name": "Next.js",
     "category": "Languages & Web",
     "icon": "NX",
-    "description": "Server-side rendering, API routes, app router, and full-stack React"
+    "description": "Server-side rendering, API routes, App Router, and full-stack React"
   },
   {
     "id": "tailwind",
@@ -81,7 +81,7 @@
     "name": "AWS",
     "category": "Databases & Cloud",
     "icon": "AW",
-    "description": "Cloud architecture, EC2, S3, Lambda, and community core team"
+    "description": "Cloud architecture, EC2, S3, and Lambda; AWS Community Core Team"
   },
   {
     "id": "ros2",

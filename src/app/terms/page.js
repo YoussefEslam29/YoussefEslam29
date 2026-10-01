@@ -31,7 +31,7 @@ export default function TermsPage() {
 
           <h2>What this site is</h2>
           <p>
-            A portfolio: a description of its owner background, skills,
+            A portfolio: a description of its owner&apos;s background, skills,
             projects, and certificates, together with a way to get in touch. It
             does not sell anything and takes no payment.
           </p>
@@ -61,7 +61,7 @@ export default function TermsPage() {
 
           <h2>Accuracy</h2>
           <p>
-            The site is kept accurate to the best of its owner knowledge, but it
+            The site is kept accurate to the best of its owner&apos;s knowledge, but it
             is provided as is, with no warranty that it is complete, current, or
             free of errors. Parts of the projects section are drawn live from
             the public GitHub API and reflect whatever that API returns at the
@@ -71,7 +71,7 @@ export default function TermsPage() {
           <h2>External links</h2>
           <p>
             This site links to other places, including GitHub, LinkedIn, and
-            other social platforms. Those sites are not under its owner control,
+            other social platforms. Those sites are not under its owner&apos;s control,
             and he is not responsible for their content or their privacy
             practices.
           </p>
