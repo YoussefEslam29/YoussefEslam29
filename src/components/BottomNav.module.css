@@ -1,0 +1,115 @@
+/* The marquee rail along the bottom of a phone: glass-black, a brass double
+   hairline on top, and a short neon tube gliding to the current tab. */
+.bar {
+  display: none;
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .bar {
+    display: block;
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: var(--z-nav);
+    padding-bottom: var(--safe-bottom);           /* clears the home indicator */
+    background: var(--clr-glass-strong);
+    -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+    border-top: 1px solid var(--clr-brass-line);
+    box-shadow: 0 -14px 32px rgba(0, 0, 0, 0.35);
+    transition: transform 0.25s var(--ease-out-expo);
+  }
+}
+
+/* Deco double hairline: a second brass line 4px under the border */
+.bar::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 4px;
+  height: 1px;
+  background: var(--clr-brass-faint);
+  pointer-events: none;
+}
+
+/* Out of the way while typing, and under the drawer or the lightbox */
+.bar[data-hidden],
+:global(body[data-overlay]) .bar {
+  transform: translateY(110%);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  height: var(--bottom-nav-h);
+  list-style: none;
+  padding-inline: max(4px, var(--safe-left)) max(4px, var(--safe-right));
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+  min-width: var(--tap);
+  color: var(--clr-text-secondary);            /* 9.9:1 on ink */
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.item svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.label {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;                     /* only matters at 200% text zoom */
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.item[aria-current] {
+  color: var(--clr-neon-core);
+  text-shadow: 0 0 8px rgba(255, 74, 69, 0.75);
+}
+
+.item[aria-current] svg {
+  filter: drop-shadow(0 0 4px rgba(255, 74, 69, 0.8));
+}
+
+.item:active {
+  color: var(--clr-cream);
+  background: rgba(255, 74, 69, 0.06);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--clr-amber);
+  outline-offset: -4px;
+}
+
+/* The neon tube that glides to the current tab */
+.indicator {
+  position: absolute;
+  top: -1px;
+  inset-inline: 24%;
+  height: 2px;
+  background: var(--clr-neon);
+  box-shadow: 0 0 8px var(--clr-neon-glow), 0 0 18px rgba(255, 74, 69, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+}

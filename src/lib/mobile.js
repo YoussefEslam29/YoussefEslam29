@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
-import { scrollBehavior } from "@/lib/animations";
+import { scrollBehavior, SECTION_NAVIGATE_EVENT } from "@/lib/animations";
 
 /** True while a media query matches (false during server render). */
 export function useMediaQuery(query) {
@@ -123,11 +123,13 @@ export function useFocusTrap(ref, active, onEscape) {
 /**
  * Scrolls to a section (CSS scroll-margin-top clears the fixed bar), puts the
  * section in the URL for sharing, and can move focus to its heading for
- * keyboard and screen-reader users.
+ * keyboard and screen-reader users. The nav indicators move to the target
+ * straight away rather than following the scroll.
  */
 export function scrollToSection(id, { focusHeading = false } = {}) {
   const el = document.getElementById(id);
   if (!el) return;
+  window.dispatchEvent(new CustomEvent(SECTION_NAVIGATE_EVENT, { detail: id }));
   el.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
   const url = id === "home" ? window.location.pathname : `#${id}`;
   window.history.replaceState(window.history.state, "", url);
