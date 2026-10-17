@@ -111,13 +111,34 @@ From full-stack web applications to teleoperated robots, I thrive at the interse
 
 ### 📊 GitHub Activity
 
+<!-- Row 1: overview + streak, framed side by side (both cards are 467x171) -->
 <div align="center">
-  <img src="https://github-stats-extended.vercel.app/api?username=YoussefEslam29&show_icons=true&theme=radium&hide_border=true&title_color=A855F7" alt="GitHub Stats" width="48%" />
-  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=YoussefEslam29&layout=compact&theme=radium&hide_border=true&title_color=A855F7" alt="Top Languages" width="48%" />
+  <table>
+    <tr>
+      <td>
+        <a href="https://github.com/YoussefEslam29?tab=repositories">
+          <img src="https://github-stats-extended.vercel.app/api?username=YoussefEslam29&show_icons=true&include_all_commits=true&hide=prs,issues,contribs&rank_icon=github&line_height=42&custom_title=GitHub%20Overview&bg_color=15131D&title_color=A855F7&icon_color=A855F7&text_color=E6EDF3&ring_color=A855F7&hide_border=true&border_radius=12" alt="GitHub Overview" width="380" />
+        </a>
+      </td>
+      <td>
+        <a href="https://github.com/YoussefEslam29">
+          <img src="https://streak-stats.demolab.com/?user=YoussefEslam29&card_width=467&card_height=171&background=15131D&border_radius=12&hide_border=true&stroke=2E2A3F&ring=A855F7&fire=C084FC&currStreakNum=FFFFFF&sideNums=FFFFFF&currStreakLabel=C084FC&sideLabels=A855F7&dates=8B949E" alt="GitHub Streak" width="380" />
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>
 
+<!-- Row 2: languages -->
 <div align="center">
-  <img src="https://streak-stats.demolab.com/?user=YoussefEslam29&theme=radium&hide_border=true&stroke=A855F7&ring=A855F7&fire=A855F7&v=1" alt="GitHub Streak" />
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=YoussefEslam29&layout=compact&langs_count=8&card_width=500&custom_title=Top%20Languages&bg_color=15131D&title_color=A855F7&text_color=E6EDF3&hide_border=true&border_radius=12" alt="Top Languages" />
+</div>
+
+<!-- Row 3: contribution skyline (3D) -->
+<div align="center">
+  <img src="https://ssr-contributions-svg.vercel.app/_/YoussefEslam29?chart=3dbar&gap=0.6&scale=2&flatten=1&animation=wave&format=svg&weeks=40&colors=1F1B2E,4C1D95,7C3AED,A855F7,D8B4FE" alt="Contribution skyline" width="720" />
+  <br />
+  <sub>Contribution skyline · last 40 weeks</sub>
 </div>
 
 ---
