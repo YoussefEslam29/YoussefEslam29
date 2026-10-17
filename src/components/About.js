@@ -31,8 +31,8 @@ export default function About() {
               at my university.
             </p>
             <p>
-              I am based between <strong>Egypt</strong> and{" "}
-              <strong>Saudi Arabia</strong>. Recent projects include a
+              I am based in <strong>Alexandria, Egypt</strong> and{\" \"}
+              available for remote work. Recent projects include a
               motorcycle sales platform built on Next.js, a robot driven over
               ROS 2 from a PlayStation controller, and a two-pass SIC/XE
               assembler written from scratch.
@@ -45,7 +45,7 @@ export default function About() {
               <div className={styles.fileTab} aria-hidden="true">Nº 29</div>
               <div className={styles.fileHead}>
                 <span>Personnel file</span>
-                <span>Egypt · KSA</span>
+                <span>Egypt</span>
               </div>
               <dl className={styles.facts}>
                 <div className={styles.fact}>

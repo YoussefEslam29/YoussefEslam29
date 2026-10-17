@@ -12,7 +12,7 @@
 | **Full Name** | Youssef Eslam Hussein |
 | **Field** | Software & Web Developer |
 | **University** | Arab Academy for Science and Technology (AASTMT) — Computer Engineering, graduating 2028 |
-| **Based** | Alexandria, Egypt + Saudi Arabia |
+| **Based** | Alexandria, Egypt |
 | **Brand alias** | XIXYA · 29 |
 | **Primary stack** | React, Next.js, TypeScript, SQL/NoSQL, PostgreSQL, MongoDB |
 | **Secondary stack** | Python, C++, ROS 2, Raspberry Pi, AWS, Vercel, Git |
@@ -28,7 +28,6 @@
 | X / Twitter | @XIXYA_29 |
 | Facebook | yousef.carti |
 | 🇪🇬 Phone | +20 102 386 0655 |
-| 🇸🇦 Phone | +966 56 133 1159 |
 
 ---
 
@@ -78,7 +77,7 @@ A full two-sided professional business card was designed and exported.
 - All social links (GitHub, LinkedIn, Instagram, X, Facebook)
 - Contact info (email, website, both phones)
 - QR code linking to https://youssef-eslam29.vercel.app/
-- Caption: "Software & Web Developer / Egypt · Saudi Arabia"
+- Caption: "Software & Web Developer / Egypt"
 
 **Design details:**
 - Colors: `#0c0b14` background, `#a855f7` purple accent, white text

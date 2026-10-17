@@ -33,16 +33,15 @@
 
 <div align="center">
   <img src="https://img.shields.io/badge/EG_Phone-%2B20_1023860655-128C7E?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Egypt Phone" />
-  <img src="https://img.shields.io/badge/KSA_Phone-%2B966_56_133_1159-128C7E?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Saudi Phone" />
 </div>
 
 ---
 
 ### 👨‍💻 About Me
 
-I'm **Youssef Eslam Hussein** — a 3rd-year Computer Engineering student at the Arab Academy for Science, Technology & Maritime Transport (AASTMT), passionate about building things that matter.
+I'm **Youssef Eslam Hussein** — a 4th-year Computer Engineering student at the Arab Academy for Science, Technology & Maritime Transport (AASTMT), passionate about building things that matter.
 
-From full-stack web applications to teleoperated robots, I thrive at the intersection of software, hardware, and cloud. Based between **Egypt** and **Saudi Arabia**, I bring a global perspective to every project — whether it's a motorcycle sales platform, a machine learning model, or a robot controlled with a PlayStation joystick.
+From full-stack web applications to teleoperated robots, I thrive at the intersection of software, hardware, and cloud. Based in **Alexandria, Egypt**, my projects range from a motorcycle sales platform to a machine learning model to a robot controlled with a PlayStation joystick.
 
 - ☁️ Active member of the **AWS Community Core Team** at my university
 - 🚀 Building **CashBack Motors** — a full-stack digital platform for motorcycle sales
