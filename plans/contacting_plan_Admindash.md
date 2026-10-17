@@ -138,12 +138,13 @@ GMAIL_USER=yousef.islam.hussein@gmail.com
 GMAIL_APP_PASSWORD=xxxx-xxxx-xxxx-xxxx
 NOTIFICATION_EMAIL=yousef.islam.hussein@gmail.com
 
-# Admin Panel
-NEXT_PUBLIC_ADMIN_USER=admin
-NEXT_PUBLIC_ADMIN_PASS=xixya2024
+# Admin Panel (server-only: never prefix these with NEXT_PUBLIC_)
+ADMIN_USER=your-admin-username
+ADMIN_PASS=a-long-random-password
+ADMIN_SESSION_SECRET=generate-with-openssl-rand-hex-32
 
 # NextAuth
-NEXTAUTH_SECRET=your-secret-key-change-in-production
+NEXTAUTH_SECRET=generate-with-openssl-rand-base64-32
 NEXTAUTH_URL=http://localhost:3000
 ```
 
