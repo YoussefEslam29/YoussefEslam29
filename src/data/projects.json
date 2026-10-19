@@ -2,22 +2,23 @@
   {
     "id": "cashback-motors",
     "title": "CashBack Motors",
-    "description": "A comprehensive digital platform for motorcycle sales, featuring advanced search, filtering, and a modern responsive interface built with server-side rendering.",
+    "description": "A bilingual (English and Arabic, right-to-left) showcase website for a motorcycle and scooter shop in Alexandria. Built with Next.js 16, TypeScript and Tailwind CSS, and deployed on Vercel.",
     "techStack": [
       "Next.js",
+      "TypeScript",
       "Tailwind CSS",
-      "JavaScript"
+      "next-intl"
     ],
     "category": "Web",
     "github": "https://github.com/YoussefEslam29/CashBack-Motors",
-    "live": null,
+    "live": "https://cashback-motors.vercel.app",
     "featured": true,
     "image": null
   },
   {
     "id": "eve-robot",
     "title": "EVE Robot",
-    "description": "A teleoperated robotics project engineered with ROS 2 and Raspberry Pi 4, featuring ultrasonic sensors and a PlayStation controller interface for remote operation.",
+    "description": "A teleoperated robot built with ROS 2 and a Raspberry Pi 4, driven by a PlayStation controller and using ultrasonic sensors for distance sensing.",
     "techStack": [
       "ROS 2",
       "Raspberry Pi",
@@ -33,7 +34,7 @@
   {
     "id": "sicxe-assembler",
     "title": "SIC/XE Assembler",
-    "description": "A complete two-pass assembler built from scratch, demonstrating a deep understanding of low-level microprocessor architecture and machine code generation.",
+    "description": "A two-pass assembler for the SIC/XE architecture, written in Python. The first pass builds the symbol table and location counter, and the second generates object code.",
     "techStack": [
       "Python"
     ],
@@ -46,7 +47,7 @@
   {
     "id": "bean-classification",
     "title": "Bean Plant Classification",
-    "description": "A machine learning model that uses LightGBM to classify bean plant varieties accurately, with data preprocessing and model evaluation pipelines.",
+    "description": "A LightGBM classifier for bean plant varieties, trained on a Kaggle dataset in Google Colab and reaching 93.15% accuracy.",
     "techStack": [
       "Python",
       "LightGBM",

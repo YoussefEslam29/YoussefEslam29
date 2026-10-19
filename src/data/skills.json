@@ -11,7 +11,7 @@
     "name": "TypeScript",
     "category": "Languages & Web",
     "icon": "TS",
-    "description": "Type-safe development with interfaces, generics, and strict typing"
+    "description": "Strict TypeScript in CashBack Motors, DEKKA and Incarnatrun."
   },
   {
     "id": "python",
@@ -81,7 +81,21 @@
     "name": "AWS",
     "category": "Databases & Cloud",
     "icon": "AW",
-    "description": "Cloud architecture, EC2, S3, and Lambda; AWS Community Core Team"
+    "description": "Hands-on basics with EC2, S3 and Lambda, plus an AWS CDK stack for media uploads in CashBack Motors. Preparing for Cloud Practitioner. AWS Community Core Team."
+  },
+  {
+    "id": "docker",
+    "name": "Docker",
+    "category": "Databases & Cloud",
+    "icon": "DK",
+    "description": "Docker Compose for local MongoDB and PostgreSQL in DEKKA and Incarnatrun. Learning images and containers."
+  },
+  {
+    "id": "github-actions",
+    "name": "GitHub Actions",
+    "category": "Databases & Cloud",
+    "icon": "GA",
+    "description": "A CI workflow in DEKKA that runs type checks and a weekly dependency audit."
   },
   {
     "id": "ros2",

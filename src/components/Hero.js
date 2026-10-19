@@ -57,7 +57,7 @@ export default function Hero({ scene }) {
       <div className={`container ${styles.content}`}>
         <div className={styles.textBlock}>
           <h1 className={styles.name}>
-            <span className={styles.nameFirst}>Youssef</span>
+            <span className={styles.nameFirst}>Youssef</span>{" "}
             <span className={styles.nameLast}>Eslam Hussein</span>
           </h1>
 

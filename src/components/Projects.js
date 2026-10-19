@@ -19,7 +19,7 @@ const FEATURED_REPOS = {
   "alexandria-barber-book": { category: "Web" },
   Incarnatrun: {
     category: "Web",
-    description: "Incarnatrun is a website for creating a 3D model of yourself.",
+    description: "Incarnatrun is a web app that turns a photo into a rigged 3D avatar you can export to Blender. Still in progress.",
   },
   "S.N.S": {
     category: "Web",
