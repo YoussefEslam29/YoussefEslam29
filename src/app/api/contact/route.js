@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import { adminDb, adminMessaging } from "@/lib/firebase-admin";
 import nodemailer from "nodemailer";
 
+function escapeHtml(text) {
+  return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 export async function POST(request) {
   try {
     const { name, email, subject, businessSector, message } = await request.json();
@@ -9,6 +14,14 @@ export async function POST(request) {
     // Basic Validation
     if (!name || !email || !subject || !message) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    const fields = { name, email, subject, businessSector: businessSector ?? "", message };
+    const limits = { name: 100, email: 254, subject: 150, businessSector: 100, message: 5000 };
+    for (const key in limits) {
+      if (typeof fields[key] !== "string" || fields[key].length > limits[key]) {
+        return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+      }
     }
 
     const contactMessage = {
@@ -28,7 +41,7 @@ export async function POST(request) {
     } catch (dbError) {
       console.error("Failed to save message to Firestore:", dbError);
       return NextResponse.json(
-        { error: "Failed to save message", details: dbError.message },
+        { error: "Failed to save message" },
         { status: 500 }
       );
     }
@@ -82,23 +95,23 @@ export async function POST(request) {
               <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
                 <tr>
                   <td style="padding: 8px; font-weight: bold; color: #555; width: 140px;">From:</td>
-                  <td style="padding: 8px;">${name}</td>
+                  <td style="padding: 8px;">${escapeHtml(name)}</td>
                 </tr>
                 <tr style="background: #f9f9f9;">
                   <td style="padding: 8px; font-weight: bold; color: #555;">Email:</td>
-                  <td style="padding: 8px;"><a href="mailto:${email}">${email}</a></td>
+                  <td style="padding: 8px;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td>
                 </tr>
                 <tr>
                   <td style="padding: 8px; font-weight: bold; color: #555;">Subject:</td>
-                  <td style="padding: 8px;">${subject}</td>
+                  <td style="padding: 8px;">${escapeHtml(subject)}</td>
                 </tr>
                 <tr style="background: #f9f9f9;">
                   <td style="padding: 8px; font-weight: bold; color: #555;">Business Sector:</td>
-                  <td style="padding: 8px;">${businessSector || "Not specified"}</td>
+                  <td style="padding: 8px;">${escapeHtml(businessSector || "Not specified")}</td>
                 </tr>
               </table>
               <div style="background: #f3f0ff; border-left: 4px solid #7c3aed; padding: 16px; margin: 16px 0; border-radius: 4px;">
-                <p style="margin: 0; white-space: pre-wrap;">${message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br/>")}</p>
+                <p style="margin: 0; white-space: pre-wrap;">${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
               </div>
               <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
               <p style="color: #999; font-size: 12px;">
