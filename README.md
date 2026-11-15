@@ -41,11 +41,12 @@
 
 I'm **Youssef Eslam Hussein** — a 4th-year Computer Engineering student at the Arab Academy for Science, Technology & Maritime Transport (AASTMT), passionate about building things that matter.
 
-From full-stack web applications to teleoperated robots, I thrive at the intersection of software, hardware, and cloud. Based in **Alexandria, Egypt**, my projects range from a motorcycle sales platform to a machine learning model to a robot controlled with a PlayStation joystick.
+From full-stack web applications to teleoperated robots, I work where software, hardware and cloud meet. I'm based in **Alexandria, Egypt**, and I write tested code: two of my recent projects carry 230+ automated tests each.
 
-- ☁️ Active member of the **AWS Community Core Team** at my university
-- 🚀 Building **CashBack Motors** — a full-stack digital platform for motorcycle sales
-- 🤖 Engineering **EVE**, a teleoperated robot powered by ROS 2 and Raspberry Pi 4
+- 💼 Freelance web developer: **[Cash Back Moto](https://cashback-motors.vercel.app)** and **[DEKKA](https://dekka-events.vercel.app)** for local businesses
+- ⚽ Building **[7GZ-KORA](https://github.com/YoussefEslam29/7gz-kora)**, a football-night app with a PostgreSQL rating engine
+- ☁️ Core Team member of the **AWS Community** at AASTMT
+- 🤖 Led the team behind **[EVE](https://github.com/YoussefEslam29/NETWORKS-PROJECT)**, a ROS 2 robot driven from a browser control panel
 - 🌐 Check out my full portfolio → **[youssef-eslam29.vercel.app](https://youssef-eslam29.vercel.app/)**
 
 ---
@@ -86,10 +87,14 @@ From full-stack web applications to teleoperated robots, I thrive at the interse
 
 ### 🚀 Highlighted Projects
 
-*   **[CashBack Motors](https://github.com/YoussefEslam29)** — A comprehensive digital platform for motorcycle sales, featuring advanced search, filtering, and a modern responsive interface built with Next.js, React, and Tailwind CSS. Deployed with automated CI/CD via Vercel.
-*   **[EVE Robot](https://github.com/YoussefEslam29)** — A teleoperated robotics project engineered with ROS 2 and Raspberry Pi 4, featuring ultrasonic sensors and a PlayStation controller interface for real-time remote operation.
-*   **[SIC/XE Assembler](https://github.com/YoussefEslam29)** — A complete 2-pass assembler built from scratch in Python, demonstrating deep understanding of low-level microprocessor architecture and machine code generation.
-*   **[Bean Plant Classification](https://github.com/YoussefEslam29)** — A machine learning model using LightGBM, achieving 93.15% accuracy in classifying structural plant variations via a full preprocessing and evaluation pipeline.
+*   **[7GZ-KORA](https://github.com/YoussefEslam29/7gz-kora)** — An installable app (PWA) for weekly football nights: sign-ups with a waiting list, live game tracking, cost splitting and peer voting. Player ratings are computed by a PostgreSQL function, and 238 tests run against the real database code. *React, TypeScript, Supabase.*
+*   **[DEKKA](https://github.com/YoussefEslam29/DEKKA-EVENTS)** · [live](https://dekka-events.vercel.app) — An Arabic-first event reservation app for a café: one-tap bookings with door codes, offline staff check-in and an admin dashboard. *Next.js, MongoDB, Auth.js, Sentry, GitHub Actions.*
+*   **[Cash Back Moto](https://github.com/YoussefEslam29/CashBack-Motors)** · [live](https://cashback-motors.vercel.app) — A bilingual (English/Arabic, right-to-left) catalog site for a motorcycle and scooter dealer in Alexandria and Cairo, with an AWS CDK stack for file uploads. *Next.js 16, TypeScript, Tailwind CSS, next-intl.*
+*   **[Incarnatrun](https://github.com/YoussefEslam29/Incarnatrun)** — Turns one photo into a rigged 3D avatar you edit in the browser and export as GLB or FBX, with 252 tests. *Next.js, React Three Fiber, PostgreSQL.*
+*   **[Cloud Load Balancer Simulator](https://github.com/YoussefEslam29/Operating-Systems-AAST/tree/main/Project)** — A multithreaded Java simulation (a thread and a blocking queue per server), with a dashboard that compares balancing algorithms. *Java, Next.js.*
+*   **[EVE Robot](https://github.com/YoussefEslam29/NETWORKS-PROJECT)** — A teleoperated, self-balancing robot on ROS 2 and a Raspberry Pi 4, driven with a PlayStation controller through a browser control panel. I led the team. *ROS 2, Python, Flask, Socket.IO.*
+*   **SIC/XE Assembler** — A two-pass assembler written from scratch in Python: pass 1 builds the symbol table, pass 2 generates object code.
+*   **Bean Plant Classification** — A LightGBM model that classifies bean plant varieties with 93.15% accuracy, with a full preprocessing and evaluation pipeline.
 
 📌 See the full project gallery with live demos on my **[portfolio site](https://youssef-eslam29.vercel.app/#projects)**.
 
@@ -99,7 +104,9 @@ From full-stack web applications to teleoperated robots, I thrive at the interse
 
 | Certificate | Issuer | Date |
 |---|---|---|
+| Cybersecurity Bootcamp | HackerRank × AWS Student Builder Group AAST | Aug – Sep 2026 |
 | Data Analysis & Visualization (Grade: Excellent) | ICTHub Egypt | Jan – Feb 2026 |
+| AWS Hands-On Workshop | AWS Cloud Club at AASTMT | 2026 |
 | IEEE AAST VGM Event | IEEE AAST Student Branch | Mar 2025 |
 | IEEE AAST Cloudify Event | IEEE AAST Student Branch | Feb 2025 |
 | Cybersecurity Vigilance Expedition 2024 | IEEE Alex SB | 2024 |

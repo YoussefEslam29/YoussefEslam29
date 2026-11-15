@@ -33,9 +33,9 @@ export default function About() {
             <p>
               I am based in <strong>Alexandria, Egypt</strong> and{" "}
               available for remote work. Recent projects include a
-              motorcycle sales platform built on Next.js, a robot driven over
-              ROS 2 from a PlayStation controller, and a two-pass SIC/XE
-              assembler written from scratch.
+              football-night app whose player ratings are computed in
+              PostgreSQL, a multithreaded load balancer simulator in Java,
+              and a robot driven over ROS 2 from a PlayStation controller.
             </p>
           </div>
 

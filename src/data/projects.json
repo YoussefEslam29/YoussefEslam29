@@ -1,8 +1,8 @@
 [
   {
     "id": "cashback-motors",
-    "title": "CashBack Motors",
-    "description": "A bilingual (English and Arabic, right-to-left) showcase website for a motorcycle and scooter shop in Alexandria. Built with Next.js 16, TypeScript and Tailwind CSS, and deployed on Vercel.",
+    "title": "Cash Back Moto",
+    "description": "A bilingual (English and Arabic, right-to-left) catalog website for a motorcycle and scooter dealer with branches in Alexandria and Cairo. Built with Next.js 16, TypeScript and Tailwind CSS, and deployed on Vercel.",
     "techStack": [
       "Next.js",
       "TypeScript",
@@ -16,17 +16,51 @@
     "image": null
   },
   {
+    "id": "7gz-kora",
+    "title": "7GZ-KORA",
+    "description": "An installable app (PWA) for weekly football nights: sign-ups with a waiting list, live game tracking, cost splitting and peer voting. Player ratings are computed by a PostgreSQL function, covered by 238 tests.",
+    "techStack": [
+      "React",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Vitest"
+    ],
+    "category": "Web",
+    "github": "https://github.com/YoussefEslam29/7gz-kora",
+    "live": null,
+    "featured": true,
+    "image": null
+  },
+  {
+    "id": "cloud-load-balancer",
+    "title": "Cloud Load Balancer Simulator",
+    "description": "A multithreaded Java simulation of a cloud load balancer: one thread per server with a blocking task queue and round-robin dispatch, plus a web dashboard that compares round robin, least connections and random.",
+    "techStack": [
+      "Java",
+      "Multithreading",
+      "Next.js",
+      "TypeScript"
+    ],
+    "category": "Systems",
+    "github": "https://github.com/YoussefEslam29/Operating-Systems-AAST/tree/main/Project",
+    "live": null,
+    "featured": true,
+    "image": null
+  },
+  {
     "id": "eve-robot",
     "title": "EVE Robot",
-    "description": "A teleoperated robot built with ROS 2 and a Raspberry Pi 4, driven by a PlayStation controller and using ultrasonic sensors for distance sensing.",
+    "description": "A teleoperated, self-balancing robot built with ROS 2 and a Raspberry Pi 4. A PlayStation controller drives it through a browser control panel, and two ultrasonic sensors measure distance.",
     "techStack": [
       "ROS 2",
       "Raspberry Pi",
       "Python",
-      "C++"
+      "C++",
+      "Flask"
     ],
     "category": "Robotics",
-    "github": null,
+    "github": "https://github.com/YoussefEslam29/NETWORKS-PROJECT",
     "live": null,
     "featured": true,
     "image": null

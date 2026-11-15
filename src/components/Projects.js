@@ -21,10 +21,6 @@ const FEATURED_REPOS = {
     category: "Web",
     description: "Incarnatrun is a web app that turns a photo into a rigged 3D avatar you can export to Blender. Still in progress.",
   },
-  "S.N.S": {
-    category: "Web",
-    description: "S.N.S (SWILLNSPIN) is a car wash located at Transport and Engineering, Smouha.",
-  },
 };
 
 // Repo descriptions are written on GitHub and can contain emoji, which do not

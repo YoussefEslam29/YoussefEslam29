@@ -11,7 +11,7 @@
     "name": "TypeScript",
     "category": "Languages & Web",
     "icon": "TS",
-    "description": "Strict TypeScript in CashBack Motors, DEKKA and Incarnatrun."
+    "description": "Strict TypeScript in Cash Back Moto, DEKKA and Incarnatrun."
   },
   {
     "id": "python",
@@ -81,21 +81,21 @@
     "name": "AWS",
     "category": "Databases & Cloud",
     "icon": "AW",
-    "description": "Hands-on basics with EC2, S3 and Lambda, plus an AWS CDK stack for media uploads in CashBack Motors. Preparing for Cloud Practitioner. AWS Community Core Team."
+    "description": "EC2, S3, Lambda; a CDK stack for presigned uploads in Cash Back Moto."
   },
   {
     "id": "docker",
     "name": "Docker",
     "category": "Databases & Cloud",
     "icon": "DK",
-    "description": "Docker Compose for local MongoDB and PostgreSQL in DEKKA and Incarnatrun. Learning images and containers."
+    "description": "Compose for local MongoDB and PostgreSQL in DEKKA and Incarnatrun."
   },
   {
     "id": "github-actions",
     "name": "GitHub Actions",
     "category": "Databases & Cloud",
     "icon": "GA",
-    "description": "A CI workflow in DEKKA that runs type checks and a weekly dependency audit."
+    "description": "CI in DEKKA: type checks and a weekly dependency audit."
   },
   {
     "id": "ros2",
